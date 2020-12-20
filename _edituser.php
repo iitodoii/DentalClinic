@@ -22,13 +22,10 @@
     `phone`='$phone',`firstname`='$firstname',`lastname`='$lastname',`address`='$address',`education`='$address',
     `question`='$question',`answer`='$answer',`role`='$radioRole' WHERE id = '$id'");
 
-    if($conn->affected_rows>=0)
+    if($conn->affected_rows>=0) //Row Updated  1 or 0
     {
         $list = array(
-            'status'=>$conn->affected_rows,
-            'filename'=>$_FILES['u_image'],
-            'oldname'=>$_POST['u_image_name'],
-            'newname'=>$filename
+            'status'=>$conn->affected_rows
         );
         $myJson = json_encode($list);
         echo $myJson;

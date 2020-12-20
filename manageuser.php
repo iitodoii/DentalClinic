@@ -574,44 +574,9 @@ if ($_SESSION['role'] != 'admin') {
             }
         });
 
-        // $('#adduserform').on('submit', function(e) {
-        //     adduser();
-        //     e.preventDefault();
-
-        //     // var form_data = new FormData($('#adduserform')[0]);
-        //     // $.ajax({
-        //     //     type: 'post',
-        //     //     url: '_adduser.php',
-        //     //     enctype: 'multipart/form-data',
-        //     //     data: form_data,
-        //     //     dataType: 'json',
-        //     //     success: function(response) {
-        //     //         alert('form was submitted');
-        //     //     },
-        //     //     error:function(e){
-        //     //         alert(e.responseText);
-        //     //     }
-        //     // }).then(()=>{ alert('hello')});
-
-        // });
-
     });
 
     function adduser() {
-        // var file_data = $('#customFile').prop('files')[0];
-        // var form_data = new FormData();
-        // var data = getFormData($('#adduserform'));
-        // form_data.append('file', file_data);
-        // form_data.append('data', data);
-        // for (var pair of form_data.entries()) {
-        //     console.log(pair[0] + ', ' + pair[1]);
-        // }
-        // data.file = form_data;
-        // var date = moment(data.birthdate, 'DD/MMM/YYYY').format('YYYY/MM/DD');
-        // var form_data = new FormData($('#adduserform')[0]);
-        // data.birthdate = date;
-        // if (data.password == data.confirmpassword) {
-
 
         var form_data = new FormData($('#adduserform')[0]);
         if ($('#InputPassword').val() == $('#InputPassword').val()) {
@@ -619,7 +584,7 @@ if ($_SESSION['role'] != 'admin') {
                 type: 'POST',
                 url: '_adduser.php',
                 data: form_data,
-                // dataType: 'json',
+                // dataType: 'json',s
                 processData: false,
                 contentType: false,
                 success: function(response) {
