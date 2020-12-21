@@ -574,6 +574,7 @@ if ($_SESSION['role'] != 'admin') {
             }
         });
 
+
     });
 
     function adduser() {
@@ -584,11 +585,11 @@ if ($_SESSION['role'] != 'admin') {
                 type: 'POST',
                 url: '_adduser.php',
                 data: form_data,
-                // dataType: 'json',s
+                dataType: 'json',
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    if (response.status) {
+                    if (response.status>=0) {
                         swal("เรียบร้อย เพิ่มข้อมูลเสร็จสิ้น!", {
                             icon: "success"
                         }).then((e) => {
