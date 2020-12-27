@@ -69,9 +69,14 @@ if ($_SESSION['role'] != 'admin') {
                                 echo "<tr>" .
                                     "<td>" . $row["patient_id"] . "</td>" .
                                     "<td>" . $row["firstname"] . "</td>" .
-                                    "<td>" . $row["lastname"] . "</td>" .
-                                    "<td>" . $row["sex"] . "</td>" .
-                                    "<td>" . $row["birthdate"] . "</td>" .
+                                    "<td>" . $row["lastname"] . "</td>" ;
+                                    if ($row["sex"] == 'female'){
+                                        echo "<td>หญิง</td>";    
+                                    }
+                                    else {
+                                        echo "<td>ชาย</td>";    
+                                    }
+                                    echo "<td>" . $row["birthdate"] . "</td>" .
                                     "<td>" . $row["address"] . "</td>" .
                                     "<td>" . $row["phone"] . "</td>" .
                                     "<td>" . $row["drug_allergy"] . "</td>" .

@@ -87,9 +87,14 @@ if ($_SESSION['role'] != 'admin') {
                                     "<td>" . $row["username"] . "</td>" .
                                     "<td class='hidetext'>" . $row["password"] . "</td>" .
                                     "<td>" . $row["firstname"] . "</td>" .
-                                    "<td>" . $row["lastname"] . "</td>" .
-                                    "<td>" . $row["sex"] . "</td>" .
-                                    "<td>" . $row["address"] . "</td>" .
+                                    "<td>" . $row["lastname"] . "</td>" ;
+                                    if ($row["sex"] == 'female'){
+                                        echo "<td>หญิง</td>";    
+                                    }
+                                    else {
+                                        echo "<td>ชาย</td>";    
+                                    }
+                                    echo "<td>" . $row["address"] . "</td>" .
                                     "<td>" . $row["education"] . "</td>" .
                                     "<td>" . $row["phone"] . "</td>" .
                                     "<td>" . $row["birthdate"] . "</td>" .
