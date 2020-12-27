@@ -65,7 +65,7 @@ if ($_SESSION['role'] != 'admin') {
                             <th class="text-nowrap">นามสกุล</th>
                             <th class="text-nowrap">เพศ</th>
                             <th class="text-nowrap">ที่อยู่</th>
-                            <th class="text-nowrap">ประวัติการศึกษา</th>
+                            <th class="text-nowrap">วุฒิการศึกษา</th>
                             <th class="text-nowrap">เบอร์โทรศัพท์</th>
                             <th class="text-nowrap">วันเกิด</th>
                             <th class="text-nowrap">ไฟล์รูปภาพ</th>
@@ -122,7 +122,7 @@ if ($_SESSION['role'] != 'admin') {
                             <th class="text-nowrap">นามสกุล</th>
                             <th class="text-nowrap">เพศ</th>
                             <th class="text-nowrap">ที่อยู่</th>
-                            <th class="text-nowrap">ประวัติการศึกษา</th>
+                            <th class="text-nowrap">วุฒิการศึกษา</th>
                             <th class="text-nowrap">เบอร์โทรศัพท์</th>
                             <th class="text-nowrap">วันเกิด</th>
                             <th class="text-nowrap">ไฟล์รูปภาพ</th>
@@ -208,7 +208,7 @@ if ($_SESSION['role'] != 'admin') {
                         </div>
                         <div class="form-group col-6">
                             <label for="InputEducation">วุฒิการศึกษา <span class="text-danger">*</span></label>
-                            <textarea type="text" name="eduction" class="form-control" rows="3" id="InputEducation" placeholder="ประวัติการศึกษา ..."></textarea>
+                            <textarea type="text" name="eduction" class="form-control" rows="3" id="InputEducation" placeholder="วุฒิการศึกษา ..."></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -225,7 +225,7 @@ if ($_SESSION['role'] != 'admin') {
                         <label for="customFile">ภาพโปรไฟล์</label>
                         <div class="custom-file">
                             <input type="file" name="image" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <label class="custom-file-label" for="customFile">เพิ่มภาพโปรไฟล์</label>
                         </div>
                     </div>
                     <div class="form-row">
@@ -343,7 +343,7 @@ if ($_SESSION['role'] != 'admin') {
                         </div>
                         <div class="form-group col-6">
                             <label for="u_InputEducation">วุฒิการศึกษา <span class="text-danger">*</span></label>
-                            <textarea type="text" name="u_eduction" class="form-control" rows="3" id="u_InputEducation" placeholder="ประวัติการศึกษา ..."></textarea>
+                            <textarea type="text" name="u_eduction" class="form-control" rows="3" id="u_InputEducation" placeholder="วุฒิการศึกษา ..."></textarea>
                         </div>
                     </div>
                     <!-- <div class="form-group">
@@ -362,7 +362,7 @@ if ($_SESSION['role'] != 'admin') {
                     <div class="form-group">
                         <div class="custom-file">
                             <input type="file" name="u_image" class="custom-file-input" id="u_customFile">
-                            <label class="custom-file-label" for="u_customFile">Choose file</label>
+                            <label class="custom-file-label" for="u_customFile">เพิ่มภาพโปรไฟล์</label>
                         </div>
                     </div>
                     <div class="form-row">
