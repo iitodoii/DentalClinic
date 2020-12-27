@@ -18,12 +18,12 @@ if ($_SESSION['role'] != 'admin') {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">ข้อมูลผู้ใช้ระบบ</h1>
+                    <h1 class="m-0 text-dark">ประวัติผู้ป่วย</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-
-                        <li class="breadcrumb-item active">จัดการข้อมูลผู้ใช้ระบบ</li>
+                        <li class="breadcrumb-item">ผู้ป่วย</li>
+                        <li class="breadcrumb-item active">จัดการข้อมูลผู้ป่วย</li>
                     </ol>
                 </div>
             </div>
@@ -33,45 +33,29 @@ if ($_SESSION['role'] != 'admin') {
         <!-- <h1>ข้อมูลผู้ใช้ระบบ</h1> -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">จัดการข้อมูลผู้ใช้ระบบ</h3>
+                <h3 class="card-title">จัดการข้อมูลผู้ป่วย</h3>
             </div>
             <!-- /.card-header -->
-            <?php $sql = "SELECT * FROM `master_user`";
+            <?php $sql = "SELECT * FROM `master_patient`";
             $result = $conn->query($sql);
             $myJson2 = json_encode($result);
 
             ?>
             <div class="card-body">
                 <button type="button" class="btn btn-info mb-4" data-toggle="modal" data-target="#modal-lg">
-                    เพิ่มผู้ใช้งาน
+                    เพิ่มประวัติผู้ป่วย
                 </button>
                 <table id="tbl_user" class="table table-bordered table-striped table-hover display nowrap">
                     <thead>
                         <tr>
-                            <!-- <th>ชื่อผู้ใช้งาน</th> -->
-                            <!-- <th >ชื่อ</th>
-                            <th >นามสกุล</th>
-                            <th >เพศ</th>
-                            <th >ไฟล์รูปภาพ</th>
-                            <th >คำถามเมื่อลืมรหัส</th>
-                            <th >คำตอบเมื่อลืมรหัส</th>
-                            <th >ตำแหน่ง</th>
-                            <th >แก้ไข</th>
-                            <th >ลบ</th> -->
-                            <th class="text-nowrap">รหัสผู้ใช้งาน</th>
-                            <th class="text-nowrap">ชื่อผู้ใช้งาน</th>
-                            <th class="text-nowrap">รหัสผ่าน</th>
+                            <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อ</th>
                             <th class="text-nowrap">นามสกุล</th>
                             <th class="text-nowrap">เพศ</th>
-                            <th class="text-nowrap">ที่อยู่</th>
-                            <th class="text-nowrap">ประวัติการศึกษา</th>
-                            <th class="text-nowrap">เบอร์โทรศัพท์</th>
                             <th class="text-nowrap">วันเกิด</th>
-                            <th class="text-nowrap">ไฟล์รูปภาพ</th>
-                            <th class="text-nowrap">คำถามเมื่อลืมรหัส</th>
-                            <th class="text-nowrap">คำตอบเมื่อลืมรหัส</th>
-                            <th class="text-nowrap">ตำแหน่ง</th>
+                            <th class="text-nowrap">ที่อยู่</th>
+                            <th class="text-nowrap">เบอร์โทร</th>
+                            <th class="text-nowrap">ประวัติการแพ้ยา</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
                         </tr>
@@ -83,30 +67,17 @@ if ($_SESSION['role'] != 'admin') {
                             while ($row = $result->fetch_assoc()) {
                                 $myArray[] = $row;
                                 echo "<tr>" .
-                                    "<td>" . $row["id"] . "</td>" .
-                                    "<td>" . $row["username"] . "</td>" .
-                                    "<td class='hidetext'>" . $row["password"] . "</td>" .
+                                    "<td>" . $row["patient_id"] . "</td>" .
                                     "<td>" . $row["firstname"] . "</td>" .
                                     "<td>" . $row["lastname"] . "</td>" .
                                     "<td>" . $row["sex"] . "</td>" .
-                                    "<td>" . $row["address"] . "</td>" .
-                                    "<td>" . $row["education"] . "</td>" .
-                                    "<td>" . $row["phone"] . "</td>" .
                                     "<td>" . $row["birthdate"] . "</td>" .
-                                    "<td>" . $row["img_name"] . "</td>" .
-                                    "<td>" . $row["question"] . "</td>" .
-                                    "<td>" . $row["answer"] . "</td>" .
-                                    "<td>" . $row["role"] . "</td>";
-                                if ($row["username"] == $_SESSION['username']) {
-                                    echo
-                                        "<td>" . "<a href=\"javascript:bindData('" . $row["id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
-                                            "<td>" . "<p class='text-secondary' > <i class='fas fa-user-minus'></i> </p> " . "</td>";
-                                } else {
-                                    echo
-                                        "<td>" . "<a href=\"javascript:bindData('" . $row["id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
-                                            "<td>" . "<a href=\"javascript:deleteUser('" . $row["id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>";
-                                }
-                                echo "</tr>";
+                                    "<td>" . $row["address"] . "</td>" .
+                                    "<td>" . $row["phone"] . "</td>" .
+                                    "<td>" . $row["drug_allergy"] . "</td>" .
+                                    "<td>" . "<a href=\"javascript:bindData('" . $row["patient_id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
+                                    "<td>" . "<a href=\"javascript:deleteUser('" . $row["patient_id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
+                                    "</tr>";
                             }
                         } else {
                             echo "0 result";
@@ -115,20 +86,14 @@ if ($_SESSION['role'] != 'admin') {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th class="text-nowrap">รหัสผู้ใช้งาน</th>
-                            <th class="text-nowrap">ชื่อผู้ใช้งาน</th>
-                            <th class="text-nowrap">รหัสผ่าน</th>
+                            <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อ</th>
                             <th class="text-nowrap">นามสกุล</th>
                             <th class="text-nowrap">เพศ</th>
-                            <th class="text-nowrap">ที่อยู่</th>
-                            <th class="text-nowrap">ประวัติการศึกษา</th>
-                            <th class="text-nowrap">เบอร์โทรศัพท์</th>
                             <th class="text-nowrap">วันเกิด</th>
-                            <th class="text-nowrap">ไฟล์รูปภาพ</th>
-                            <th class="text-nowrap">คำถามเมื่อลืมรหัส</th>
-                            <th class="text-nowrap">คำตอบเมื่อลืมรหัส</th>
-                            <th class="text-nowrap">ตำแหน่ง</th>
+                            <th class="text-nowrap">ที่อยู่</th>
+                            <th class="text-nowrap">เบอร์โทร</th>
+                            <th class="text-nowrap">ประวัติการแพ้ยา</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
                         </tr>
@@ -156,20 +121,6 @@ if ($_SESSION['role'] != 'admin') {
             <form id='adduserform' style="overflow-y: scroll">
                 <div class="modal-body">
                     <!-- <div class="row" style="overflow-y:scroll;height:40vh"> -->
-                    <div class="form-group">
-                        <label for="InputUsername">ชื่อผู้ใช้งาน <span class="text-danger">*</span></label>
-                        <input type="text" name="username" class="form-control" id="InputUsername" placeholder="ชื่อผู้ใช้งาน" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="InputPassword">รหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="password" name="password" class="form-control" id="InputPassword" placeholder="รหัสผ่าน">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="InputPasswordConfirm">รหัสผ่านอีกครั้ง <span class="text-danger">*</span></label>
-                            <input type="password" name="confirmpassword" class="form-control" id="InputPasswordConfirm" placeholder="รหัสผ่านอีกครั้ง">
-                        </div>
-                    </div>
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label for="InputFirstname">ชื่อ <span class="text-danger">*</span></label>
@@ -203,39 +154,12 @@ if ($_SESSION['role'] != 'admin') {
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="InputAddress">ที่อยู่ <span class="text-danger">*</span></label>
+                            <label for="InputAddress">ที่อยู่</label>
                             <textarea type="text" name="address" class="form-control" rows="3" id="InputAddress" placeholder="ที่อยู่ ..."></textarea>
                         </div>
                         <div class="form-group col-6">
-                            <label for="InputEducation">วุฒิการศึกษา <span class="text-danger">*</span></label>
-                            <textarea type="text" name="eduction" class="form-control" rows="3" id="InputEducation" placeholder="ประวัติการศึกษา ..."></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <!-- <label for="exampleInputFile">ภาพโปรไฟล์</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์</label>
-                            </div>
-                            < <div class="input-group-append">
-                                <span class="input-group-text" id="">อัพโหลด</span>
-                            </div> 
-                        </div> -->
-                        <label for="customFile">ภาพโปรไฟล์</label>
-                        <div class="custom-file">
-                            <input type="file" name="image" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="InputQuestion">คำถามเมื่อลืมรหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="text" name="question" class="form-control" id="InputQuestion" placeholder="Question">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="InputAnswer">คำตอบเมื่อลืมรหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="text" name="answer" class="form-control" id="InputAnswer" placeholder="Answer">
+                            <label for="InputDrugAllergy">ประวัติการแพ้ยา</label>
+                            <textarea type="text" name="drug_allergy" class="form-control" rows="3" id="InputDrugAllergy" placeholder="ประวัติการแพ้ยา ..."></textarea>
                         </div>
                     </div>
                     <div class="form-row">
@@ -248,17 +172,6 @@ if ($_SESSION['role'] != 'admin') {
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="female" name="radioSex">
                                 <label class="form-check-label">หญิง</label>
-                            </div>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="checkboxRole">ตำแหน่ง</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="user" name="radioRole" checked>
-                                <label class="form-check-label">ผู้ใช้งาน</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="admin" name="radioRole">
-                                <label class="form-check-label">ผู้ดูแลระบบ</label>
                             </div>
                         </div>
                     </div>
@@ -290,20 +203,6 @@ if ($_SESSION['role'] != 'admin') {
                     <div class="form-group d-none">
                         <label for="u_InputId">รหัสผู้ใช้งาน</label>
                         <input type="text" name="u_id" class="form-control" id="u_InputId" placeholder="รหัสผู้ใช้งาน">
-                    </div>
-                    <div class="form-group">
-                        <label for="u_InputUsername">ชื่อผู้ใช้งาน <span class="text-danger">*</span></label>
-                        <input type="text" name="u_username" class="form-control" id="u_InputUsername" placeholder="ชื่อผู้ใช้งาน">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="u_InputPassword">รหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="password" name="u_password" class="form-control" id="u_InputPassword" placeholder="รหัสผ่าน">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="u_InputPasswordConfirm">รหัสผ่านอีกครั้ง <span class="text-danger">*</span></label>
-                            <input type="password" name="u_confirmpassword" class="form-control" id="u_InputPasswordConfirm" placeholder="รหัสผ่านอีกครั้ง">
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
@@ -338,46 +237,17 @@ if ($_SESSION['role'] != 'admin') {
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="u_InputAddress">ที่อยู่ <span class="text-danger">*</span></label>
+                            <label for="u_InputAddress">ที่อยู่</label>
                             <textarea type="text" name="u_address" class="form-control" rows="3" id="u_InputAddress" placeholder="ที่อยู่ ..."></textarea>
                         </div>
                         <div class="form-group col-6">
-                            <label for="u_InputEducation">วุฒิการศึกษา <span class="text-danger">*</span></label>
-                            <textarea type="text" name="u_eduction" class="form-control" rows="3" id="u_InputEducation" placeholder="ประวัติการศึกษา ..."></textarea>
-                        </div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="exampleInputFile">ภาพโปรไฟล์</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="">อัพโหลด</span>
-                            </div>
-                        </div>
-                    </div> -->
-                    <label for="u_customFile">ภาพโปรไฟล์</label>
-                    <div class="form-group">
-                        <div class="custom-file">
-                            <input type="file" name="u_image" class="custom-file-input" id="u_customFile">
-                            <label class="custom-file-label" for="u_customFile">Choose file</label>
+                            <label for="u_InputDrugAllergy">ประวัติการแพ้ยา </label>
+                            <textarea type="text" name="u_drug_allergy" class="form-control" rows="3" id="u_InputDrugAllergy" placeholder="ประวัติการแพ้ยา ..."></textarea>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
                             <input type="text" name="u_image_name" class="d-none" id="u_image_name" placeholder="Old Name">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="u_InputQuestion">คำถามเมื่อลืมรหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="text" name="u_question" class="form-control" id="u_InputQuestion" placeholder="Question">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="u_InputAnswer">คำตอบเมื่อลืมรหัสผ่าน <span class="text-danger">*</span></label>
-                            <input type="text" name="u_answer" class="form-control" id="u_InputAnswer" placeholder="Answer">
                         </div>
                     </div>
                     <div class="form-row">
@@ -390,17 +260,6 @@ if ($_SESSION['role'] != 'admin') {
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="female" name="u_radioSex">
                                 <label class="form-check-label">หญิง</label>
-                            </div>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="checkboxRole">ตำแหน่ง</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="user" name="u_radioRole" checked>
-                                <label class="form-check-label">ผู้ใช้งาน</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="admin" name="u_radioRole">
-                                <label class="form-check-label">ผู้ดูแลระบบ</label>
                             </div>
                         </div>
                     </div>
@@ -455,58 +314,20 @@ if ($_SESSION['role'] != 'admin') {
         });
         $('#adduserform').validate({
             rules: {
-                username: {
-                    required: true
-                },
-                password: {
-                    required: true,
-                    minlength: 5
-                },
-                confirmpassword: {
-                    required: true
-                },
                 firstname: {
                     required: true
                 },
                 lastname: {
                     required: true
-                },
-                question: {
-                    required: true
-                },
-                answer: {
-                    required: true
-                },
-                image: {
-                    required: true
                 }
             },
             messages: {
-                username: {
-                    required: "Please enter a username"
-                },
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
-                },
-                confirmpassword: {
-                    required: "Please provide a confirmpassword",
-                },
                 firstname: {
                     required: "Please enter a firstname",
                 },
                 lastname: {
                     required: "Please enter a lastname",
                 },
-                question: {
-                    required: "Please enter a question",
-                },
-                answer: {
-                    required: "Please enter a answer",
-                },
-                image: {
-                    required: "Please Choose Your picture file"
-                }
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
@@ -523,51 +344,19 @@ if ($_SESSION['role'] != 'admin') {
 
         $('#edituserform').validate({
             rules: {
-                u_username: {
-                    required: true
-                },
-                u_password: {
-                    required: true,
-                    minlength: 5
-                },
-                u_confirmpassword: {
-                    required: true
-                },
                 u_firstname: {
                     required: true
                 },
                 u_lastname: {
                     required: true
-                },
-                u_question: {
-                    required: true
-                },
-                u_answer: {
-                    required: true
                 }
             },
             messages: {
-                u_username: {
-                    required: "Please enter a username"
-                },
-                u_password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
-                },
-                u_confirmpassword: {
-                    required: "Please provide a confirmpassword",
-                },
                 u_firstname: {
                     required: "Please enter a firstname",
                 },
                 u_lastname: {
                     required: "Please enter a lastname",
-                },
-                u_question: {
-                    required: "Please enter a question",
-                },
-                u_answer: {
-                    required: "Please enter a answer",
                 }
             },
             errorElement: 'span',
@@ -592,7 +381,7 @@ if ($_SESSION['role'] != 'admin') {
         if ($('#InputPassword').val() == $('#InputPassword').val()) {
             $.ajax({
                 type: 'POST',
-                url: '_adduser.php',
+                url: '_addpatient.php',
                 data: form_data,
                 dataType: 'json',
                 processData: false,
@@ -603,7 +392,7 @@ if ($_SESSION['role'] != 'admin') {
                             icon: "success"
                         }).then((e) => {
                             $('#modal-lg').modal('hide');
-                            window.location.href = "manageuser.php"
+                            window.location.href = "managepatient.php"
                         });
                     } else {
                         swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
@@ -641,7 +430,7 @@ if ($_SESSION['role'] != 'admin') {
         var form_data = new FormData($('#edituserform')[0]);
         $.ajax({
             type: 'POST',
-            url: '_edituser.php',
+            url: '_editpatient.php',
             data: form_data,
             dataType: 'json',
             processData: false,
@@ -652,7 +441,7 @@ if ($_SESSION['role'] != 'admin') {
                         icon: "success"
                     }).then((e) => {
                         $('#modal-update').modal('hide');
-                        window.location.href = "manageuser.php"
+                        window.location.href = "managepatient.php"
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด ในการอัพเดท!", {
@@ -671,7 +460,7 @@ if ($_SESSION['role'] != 'admin') {
     function deleteUser(id) {
         swal({
                 title: "แน่ใจหรือไม่ ?",
-                text: "คุณต้องการลบข้อมูลของพนักงานคนนี้ใช่หรือไม่ การลบไม่สามารถกู้กลับมาได้!",
+                text: "คุณต้องการลบข้อมูลของผู้ป่วยนี้ใช่หรือไม่ การลบไม่สามารถกู้กลับมาได้!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -680,7 +469,7 @@ if ($_SESSION['role'] != 'admin') {
                 if (willDelete) {
                     $.ajax({
                         type: 'post', //วิธีการส่ง
-                        url: '_deleteuser.php', //หน้าที่จะไป
+                        url: '_deletepatient.php', //หน้าที่จะไป
                         data: {
                             id: id
                         }, //parameter ที่ส่งไป
@@ -690,7 +479,7 @@ if ($_SESSION['role'] != 'admin') {
                                 swal("เรียบร้อย ลบข้อมูลเสร็จสิ้น!", {
                                     icon: "success"
                                 }).then((e) => {
-                                    window.location.href = "manageuser.php"
+                                    window.location.href = "managepatient.php"
                                 });
                             } else {
                                 swal("เกิดข้อผิดพลาด!", {
@@ -710,25 +499,15 @@ if ($_SESSION['role'] != 'admin') {
         var all = <?php echo json_encode($myArray); ?>;
         $('#modal-update').modal('show');
         $.each(all, function(i, val) {
-            if (val.id == id) {
-                $('#u_InputId').val(val.id);
-                $('#u_InputUsername').val(val.username);
-                $('#u_InputPassword').val(val.password);
-                $('#u_InputPasswordConfirm').val(val.password);
+            if (val.patient_id == id) {
+                $('#u_InputId').val(val.patient_id);
                 $('#u_InputFirstname').val(val.firstname);
                 $('#u_InputLastname').val(val.lastname);
                 $('#u_InputPhone').val(val.phone);
-                // $('#u_customFile').val(val.img_name);
-                $('.custom-file-label').text(val.img_name);
-                $('#u_image_name').val(val.img_name);
-                // $('#u_Inputbirthdate').val(val.birthdate);
                 $('#u_Inputbirthdate').datetimepicker('date', moment(val.birthdate));
                 $('#u_InputAddress').val(val.address);
-                $('#u_InputEducation').val(val.education);
-                $('#u_InputQuestion').val(val.question);
-                $('#u_InputAnswer').val(val.answer);
+                $('#u_InputDrugAllergy').val(val.drug_allergy);
                 $('input:radio[name="u_radioSex"]').filter('[value="' + val.sex + '"]').attr('checked', true);
-                $('input:radio[name="u_radioRole"]').filter('[value="' + val.role + '"]').attr('checked', true);
             }
         });
         //edituserform

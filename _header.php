@@ -145,13 +145,13 @@ $obj = mysqli_fetch_object($result)
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tooth"></i>
                                 <p>
-                                     ทันตแพทย์
+                                    ทันตแพทย์
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="dentist.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ข้อมูลทันตแพทย์</p>
                                     </a>
@@ -174,7 +174,7 @@ $obj = mysqli_fetch_object($result)
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="managepatient.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ประวัติผู้ป่วย</p>
                                     </a>
@@ -199,7 +199,7 @@ $obj = mysqli_fetch_object($result)
                                 <a href='#' class='nav-link'>
                                     <i class='nav-icon fas fa-tooth'></i>
                                     <p>
-                                         ผู้ดูแลระบบ
+                                        ผู้ดูแลระบบ
                                         <i class='right fas fa-angle-left'></i>
                                     </p>
                                 </a>
