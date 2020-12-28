@@ -3,15 +3,15 @@
 <?php include '_header.php'; ?>
 
 <?php
-if ($_SESSION['role'] != 'admin') {
-    echo "<script>
-    swal('User can not access!', {
-        icon: 'error',
-    }).then((e) => {
-        window.location.href = '_welcome.php';
-    });
-    </script>";
-}
+// if ($_SESSION['role'] != 'admin') {
+//     echo "<script>
+//     swal('User can not access!', {
+//         icon: 'error',
+//     }).then((e) => {
+//         window.location.href = '_welcome.php';
+//     });
+//     </script>";
+// }
 ?>
 <div class="content-wrapper">
     <div class="content-header">
