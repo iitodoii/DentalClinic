@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <!-- <li class="breadcrumb-item active">Calendar</li> -->
+                        <li class="breadcrumb-item active">Schedule</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
     </section>
 
     <!-- Main content -->
-    <!-- <section class="content">
+    <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
@@ -85,7 +85,8 @@
                     </div>
                 </div>
             </div>
-    </section> -->
+            <!-- <button type="button" class="btn btn-block btn-danger">Bew</button> -->
+    </section>
 </div>
 
 <div class="modal fade" id="modal-add-event" aria-hidden="true">
@@ -101,9 +102,15 @@
                 <div class="modal-body">
                     <!-- <div class="row" style="overflow-y:scroll;height:40vh"> -->
                     <!-- disabled -->
-                    <div class="form-group">
-                        <label for="a_title">ชื่อนัดหมาย</label>
-                        <input type="text" name="a_title" class="form-control" id="a_title" placeholder="ชื่อนัดหมาย">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="a_title">รายการนัดรักษา</label>
+                            <input type="text" name="a_title" class="form-control" id="a_title" placeholder="รายการนัดรักษา">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="a_time">เวลาในการรักษา</label>
+                            <input type="text" name="a_time" class="form-control" id="a_time" placeholder="เวลาในการรักษา">
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-4">
@@ -160,7 +167,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-5">
+                        <div class="form-group col-5 d-none">
                             <label>สีเส้นขอบ</label>
                             <div class="input-group a_borderColor">
                                 <input type="text" name="a_borderColor" class="form-control">
@@ -202,9 +209,15 @@
             </div>
             <form id='edit_event_form' style="overflow-y: scroll">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="e_title">ชื่อนัดหมาย</label>
-                        <input type="text" name="e_title" class="form-control" id="e_title" placeholder="ขื่อนัดหมาย">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="e_title">รายการนัดรักษา</label>
+                            <input type="text" name="e_title" class="form-control" id="e_title" placeholder="รายการนัดรักษา">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="e_time">เวลาในการรักษา</label>
+                            <input type="text" name="e_time" class="form-control" id="e_time" placeholder="เวลาในการรักษา">
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-4">
@@ -624,7 +637,7 @@
                     }
                 }
             },
-            selectable: true,
+            selectable: false,
             selectHelper: false,
             editable: true,
             eventLimit: true,
@@ -635,26 +648,25 @@
                 $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
                 // $('a_date').val(moment(date.start).format('DD/MMM/YYYY'));
             },
-            eventClick: function(calEvent) {
-                // var title = 
-                // swal(calEvent.title);
-                // swal('id:' + calEvent.event.id + 'title' + calEvent.event.title);
-                $('#modal-edit-event').modal('show');
-                $.each(event_data, function(i, val) {
-                    if (val.id == calEvent.event.id) {
-                        $('#e_title').val(val.detaildata.event_name);
-                        $('#e_date').datetimepicker('date', moment(val.detaildata.event_start).format('DD/MMM/YYYY'));
-                        $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
-                        $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
-                        $('#e_patient_name').val(val.detaildata.patient_name);
-                        $('#e_tel').val(val.detaildata.patient_phone);
-                        $('#e_dentist').val(val.detaildata.dentist_name);
-                    }
-                });
-                // calEvent.title = title;
-                // $("#calendar").fullCalendar("updateEvent", calEvent);
-
-            }
+            // eventClick: function(calEvent) {
+            //     // var title = 
+            //     // swal(calEvent.title);
+            //     // swal('id:' + calEvent.event.id + 'title' + calEvent.event.title);
+            //     $('#modal-edit-event').modal('show');
+            //     $.each(event_data, function(i, val) {
+            //         if (val.id == calEvent.event.id) {
+            //             $('#e_title').val(val.detaildata.event_name);
+            //             $('#e_date').datetimepicker('date', moment(val.detaildata.event_start).format('DD/MMM/YYYY'));
+            //             $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
+            //             $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
+            //             $('#e_patient_name').val(val.detaildata.patient_name);
+            //             $('#e_tel').val(val.detaildata.patient_phone);
+            //             $('#e_dentist').val(val.detaildata.dentist_name);
+            //         }
+            //     });
+            //     // calEvent.title = title;
+            //     // $("#calendar").fullCalendar("updateEvent", calEvent);
+            // }
         });
 
         calendar.render();
@@ -662,8 +674,8 @@
 
     function initColorPicker() {
         let color = getRandomColor();
-        $('.a_backgroundColor').colorpicker('setValue', color)
-        $('.a_backgroundColor .fa-square').css('color', color);
+        $('.a_backgroundColor').colorpicker('setValue', color); //bind text color code 
+        $('.a_backgroundColor .fa-square').css('color', color); //bind color square icon
 
         $('.a_borderColor').colorpicker('setValue', color)
         $('.a_borderColor .fa-square').css('color', color);

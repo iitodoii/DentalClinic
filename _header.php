@@ -161,7 +161,7 @@ $obj = mysqli_fetch_object($result)
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="_welcome.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>เวลาการทำงาน</p>
                                     </a>
@@ -190,7 +190,7 @@ $obj = mysqli_fetch_object($result)
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="schedule.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>การนัดหมายผู้ป่วย</p>
                                     </a>
