@@ -381,7 +381,6 @@
     });
 
     function adduser() {
-
         var form_data = new FormData($('#adduserform')[0]);
         if ($('#InputPassword').val() == $('#InputPassword').val()) {
             $.ajax({
@@ -406,7 +405,6 @@
                     }
                 },
                 error: function(e) {
-
                 }
             });
         } else {

@@ -132,7 +132,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                                    <button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>
                                     <ul class="fc-color-picker" id="color-chooser">
                                         <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
                                         <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
@@ -395,32 +395,40 @@
                     info.draggedEl.parentNode.removeChild(info.draggedEl);
                 }
             },
+            // eventClick: function(event){
+            //     // alert('xx');
+            //     // $("<div>").dialog({ modal: true, title: event.title, width:350});
+            // }
+            // ,
             selectable: true,
             selectHelper: false,
             editable: true,
             eventLimit: true,
-            select: function(start, end) {
-                var title = prompt("Event Content:");
-                var eventData;
-                if (title) {
-                    eventData = {
-                        title: title,
-                        start: start,
-                        end: end
-                    };
-                    $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
-                }
-                $("#calendar").fullCalendar("unselect");
+            // select: function(start, end) {
+            //     var title = prompt("Event Content:"+start+':'+end);
+            //     var eventData;
+            //     if (title) {
+            //         eventData = {
+            //             title: title,
+            //             start: start,
+            //             end: end
+            //         };
+            //         var calen = $('#calendar');
+            //         calen.fullCalendar("renderEvent", eventData, true); // stick? = true
+            //     }
+            //     var calen = $('#calendar');
+            //     calen.fullCalendar("unselect");
+            // },
+            select: function (start, end, jsEvent, view) {
+                    var abc = prompt('Enter Title'+start.startStr);
+                    // var allDay = !start.hasTime && !end.hasTime;
+                    var newEvent = new Object();
+                    newEvent.title = abc;
+                    newEvent.start = moment(start).format();
+                    // newEvent.allDay = false;
+                    // $('#calendar').fullCalendar('renderEvent', newEvent);
             },
 
-            // eventRender: function (event, element) {
-            //   element
-            //     .find(".fc-content")
-            //     .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
-            //   element.find(".closeon").on("click", function () {
-            //     $("#calendar").fullCalendar("removeEvents", event._id);
-            //   });
-            // },
 
             eventClick: function(calEvent) {
                 var title = prompt("Edit Event Content:", calEvent.title);

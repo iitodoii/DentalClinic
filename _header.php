@@ -5,7 +5,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="plugins/jquery/jquery.min.js"></script>
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -16,6 +16,10 @@
 
     <!-- iCheck -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Select2 -->
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- JQVMap -->
     <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
     <!-- Theme style -->
@@ -34,7 +38,7 @@
     <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
     <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
     <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.min.css">
-    
+
     <!-- Ajax -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     <!-- Alert -->
@@ -229,19 +233,18 @@ $obj = mysqli_fetch_object($result)
             <!-- /.sidebar -->
         </aside>
 
-<script>
-function checkLogout()
-{
-    swal({
-                title: "แน่ใจหรือไม่ ?",
-                text: "ต้องการออกจากระบบหรือไม่",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willExit) => {
-                if (willExit)
-                    window.location.href = "_logout.php";
-            });
-}
-</script>
+        <script>
+            function checkLogout() {
+                swal({
+                        title: "แน่ใจหรือไม่ ?",
+                        text: "ต้องการออกจากระบบหรือไม่",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willExit) => {
+                        if (willExit)
+                            window.location.href = "_logout.php";
+                    });
+            }
+        </script>
