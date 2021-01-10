@@ -734,7 +734,7 @@
             //     });
                 // calEvent.title = title;
                 // $("#calendar").fullCalendar("updateEvent", calEvent);
-            }
+            // }
         });
 
         calendar.render();
