@@ -6,8 +6,9 @@ try {
     $result = $conn->query("SELECT s.*,
     CONCAT(p.firstname,' ',p.lastname) as patient_name,
     p.phone as patient_phone,
-    CONCAT(u.firstname,' ',u.lastname) as dentist_name
-    FROM master_schedule s join master_patient p on s.patient_id = p.patient_id JOIN master_user u on s.user_id = u.id");
+    CONCAT(u.firstname,' ',u.lastname) as dentist_name,
+    c.cure_name as title_name
+    FROM master_schedule s join master_patient p on s.patient_id = p.patient_id JOIN master_user u on s.user_id = u.id join master_cure c on c.id = s.event_name");
 
     // $result->status = true;
 

@@ -20,7 +20,6 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <!-- <section class="content">
         <div class="container-fluid">
@@ -328,6 +327,7 @@
 
 <script>
     $(document).ready(function() {
+        $('input.timepicker').timepicker({ timeFormat: 'h:mm:ss p' });
         initialData();
         genCalendarData();
         // getPatient();

@@ -33,6 +33,8 @@
     <!-- data table -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 
+    <!-- Time Picker -->
+    <link rel="stylesheet" href="plugins/jquery-timepicker/jquery.timepicker.min.css">
     <!-- Full Calendar Plugin -->
     <link rel="stylesheet" href="plugins/fullcalendar/main.min.css">
     <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
@@ -45,7 +47,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="dist/js/jquery.sweet-modal.min.js"></script>
     <link rel="stylesheet" href="dist/js/jquery.sweet-modal.min.css" />
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -161,7 +162,7 @@ $obj = mysqli_fetch_object($result)
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="_welcome.php" class="nav-link">
+                                    <a href="worktime.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>เวลาการทำงาน</p>
                                     </a>
@@ -212,6 +213,14 @@ $obj = mysqli_fetch_object($result)
                                         <a href='./manageuser.php' class='nav-link'>
                                             <i class='far fa-circle nav-icon'></i>
                                             <p>จัดการข้อมูลผู้ใช้ระบบ</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class='nav nav-treeview'>
+                                    <li class='nav-item'>
+                                        <a href='./managecure.php' class='nav-link'>
+                                            <i class='far fa-circle nav-icon'></i>
+                                            <p>จัดการรายการรักษา</p>
                                         </a>
                                     </li>
                                 </ul>

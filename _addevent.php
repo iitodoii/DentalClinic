@@ -8,6 +8,7 @@
     $createdate = date('Y/m/d', strtotime($tempdate));
     $datetime_start = date_create($createdate." ".$_POST['a_start']);
     $event_start =  date_format($datetime_start,"Y/m/d H:i");
+
     $datetime_end = date_create($createdate." ".$_POST['a_end']);
     $event_end =  date_format($datetime_end,"Y/m/d H:i");
     $event_backgroundColor = $_POST['a_backgroundColor'];
@@ -32,7 +33,8 @@
             'dentist'=>$user_id,
             'background'=>$event_backgroundColor,
             'event_start'=>$event_start,
-            'event_isAllDay'=>$event_isAllDay
+            'event_isAllDay'=>$event_isAllDay,
+            'event_end'=>$_POST['a_end']
 
         );
         $myJson = json_encode($list);

@@ -98,18 +98,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id='add_event_form' style="overflow-y: scroll">
+            <form id='add_event_form' style="overflow-y: scroll" autocomplete="off">
                 <div class="modal-body">
                     <!-- <div class="row" style="overflow-y:scroll;height:40vh"> -->
                     <!-- disabled -->
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label for="a_title">รายการนัดรักษา</label>
-                            <input type="text" name="a_title" class="form-control" id="a_title" placeholder="รายการนัดรักษา">
+                            <select class="form-control a_title" name="a_title" style="width: 100%;">
+                            </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="a_time">เวลาในการรักษา</label>
-                            <input type="text" name="a_time" class="form-control" id="a_time" placeholder="เวลาในการรักษา">
+                            <input type="text" name="a_time" class="form-control" id="a_time" placeholder="เวลาในการรักษา" autocomplete="false" disabled>
                         </div>
                     </div>
                     <div class="form-row">
@@ -124,21 +125,25 @@
                         </div>
                         <div class="form-group col-4">
                             <label>เวลาเริ่มต้น</label>
-                            <div class="input-group date" id="a_start" data-target-input="nearest">
-                                <input type="text" name='a_start' class="form-control datetimepicker-input" data-target="#a_start" />
+                            <!-- <input type="text" name='a_start' class="form-control timepicker"> -->
+                            <input type="text" class="form-control a_timepicker_start" name='a_start' />
+                            <!-- <div class="input-group date" id="a_start" data-target-input="nearest">
+                                <input type="text" name='a_start' class="form-control datetimepicker-input a_start" data-target="#a_start" />
+                                
                                 <div class="input-group-append" data-target="#a_start" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="far fa-clock"></i></div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form-group col-4">
                             <label>เวลาสิ้นสุด</label>
-                            <div class="input-group date" id="a_end" data-target-input="nearest">
-                                <input type="text" name='a_end' class="form-control datetimepicker-input" data-target="#a_end" />
+                            <input type="text" class="form-control a_timepicker_end" name='a_end' />
+                            <!-- <div class="input-group date" id="a_end" data-target-input="nearest">
+                                <input type="text" name='a_end' class="form-control datetimepicker-input a_end" data-target="#a_end" disabled />
                                 <div class="input-group-append" data-target="#a_end" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="far fa-clock"></i></div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="form-row">
@@ -284,6 +289,19 @@
         max-width: 1100px;
         margin: 0 auto;
     }
+
+    @media print {
+
+        /* All your print styles go here */
+        /* #header,
+        #footer,
+        #nav {
+            display: none !important;
+        } */
+        /* #calendar {
+            display : none !important;
+        } */
+    }
 </style>
 
 <!-- Main content -->
@@ -337,12 +355,43 @@
     // });
 </script>
 
-<?php include '_footer.php'; ?>
-
 <script>
+    var curetime;
     $(document).ready(function() {
         initialData();
         genCalendarData();
+        $('input.a_timepicker_start').timepicker({
+            timeFormat: 'H:mm',
+            minTime: '9',
+            maxTime: '20',
+            defaultDate:'9:00',
+            zindex: 3500,
+            change: function(time) {
+                // var element = $(this),
+                //     text;
+                // alert($('#a_time').val());
+                // $('input.a_timepicker_end').timepicker({
+                //     timeFormat: 'H:mm',
+                //     minTime: '9',
+                //     maxTime: '20',
+                //     defaultTime: moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'),
+                //     zindex: 3500
+                // });
+                $('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                // $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                // $('input.a_timepicker_end').text(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'))
+                // var timepicker = element.timepicker();
+                // text = 'Selected time is: ' + timepicker.format(time);
+                // element.siblings('span.help-line').text(text);
+                
+            }
+        });
+        $('input.a_timepicker_end').timepicker({
+            timeFormat: 'H:mm',
+            zindex: 3500
+        });
+        
+
         // getPatient();
         // getDentist();
         /* ADDING EVENTS */
@@ -385,6 +434,26 @@
             $('#new-event').val('')
         })
         $('.a_patient_name').change(() => getPhone())
+        $('.a_title').change(() => getCureTime())
+        // $('.a_start').change(() => {
+        //     swal('test');
+        // });
+        // $('#a_start').change(() => {
+        //     swal('test');
+        // });
+
+        //$('.a_start').on('dp.change', function(e){ swal('xx'); });
+        // $('.a_start').on('change', () => {
+        //     swal('test');
+        //     $('.a_end').val('09:15');
+        // });
+        // $('.a_start').on('change', function(e) {
+        //     swal('test');
+        //     $('.a_end').val('09:15');
+        // });
+        // $('#a_start').datetimepicker().on('dp.change', function (event) {
+        //         alert('!!!');
+        //     });
 
         $.validator.setDefaults({
             submitHandler: function(form) {
@@ -536,7 +605,7 @@
                     $.each(response.data, function(i, val) {
                         event_data.push({
                             id: val.id,
-                            title: val.event_name,
+                            title: val.title_name,
                             start: val.event_start,
                             end: val.event_end,
                             backgroundColor: val.event_backgroundColor,
@@ -603,7 +672,7 @@
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             validRange: {
-                start: moment().format('YYYY-MM-DD')
+                start: '2000-01-01' //moment().format('YYYY-MM-DD')
             },
             'themeSystem': 'bootstrap',
             //Random default events
@@ -623,7 +692,6 @@
                     click: function() {
                         var dateStr = prompt('Enter a date in YYYY-MM-DD format');
                         var date = moment(dateStr);
-
                         if (date.isValid()) {
                             $('#calendar').fullCalendar('renderEvent', {
                                 title: 'dynamic event',
@@ -664,9 +732,9 @@
             //             $('#e_dentist').val(val.detaildata.dentist_name);
             //         }
             //     });
-            //     // calEvent.title = title;
-            //     // $("#calendar").fullCalendar("updateEvent", calEvent);
-            // }
+                // calEvent.title = title;
+                // $("#calendar").fullCalendar("updateEvent", calEvent);
+            }
         });
 
         calendar.render();
@@ -696,6 +764,9 @@
         getPatient().then(() => {
             getPhone()
         });
+        getCure().then(() => {
+            getCureTime()
+        });
         var date = new Date();
         $('#e_date').datetimepicker({
             "singleDatePicker": true,
@@ -703,10 +774,16 @@
             minDate: date.setDate(date.getDate() - 1)
         });
 
-        $('#e_start').datetimepicker({
+        $('#a_start').datetimepicker({
             stepping: 30,
             enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-            format: 'HH:mm'
+            format: 'HH:mm',
+            onDatesChange: function() {
+                swal('test');
+            },
+            onSelect: function() {
+                swal('test');
+            }
         });
 
         $('#e_end').datetimepicker({
@@ -729,12 +806,12 @@
             format: 'HH:mm'
         });
 
-        $('#a_end').datetimepicker({
-            // defaultDate:moment(),
-            stepping: 30,
-            enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-            format: 'HH:mm'
-        });
+        // $('#a_end').datetimepicker({
+        //     // defaultDate:moment(),
+        //     stepping: 30,
+        //     enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        //     format: 'HH:mm'
+        // });
 
         /* initialize the external events
         -----------------------------------------------------------------*/
@@ -763,6 +840,64 @@
         ini_events($('#external-events div.external-event'))
     }
 
+    function getCure() {
+        return $.ajax({
+            type: 'post',
+            url: '_getCure.php',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    $.each(response.data, function(i, val) {
+                        $('.a_title').append('<option value="' + val.id + '">' + val.text + '</option>')
+                    });
+                } else {
+                    swal("เกิดข้อผิดพลาด :" + response.errmsg, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function getCureTime() {
+        $.ajax({
+            type: 'post',
+            url: '_getCure.php',
+            dataType: 'json',
+            data: {
+                id: $('.a_title').val()
+            },
+            success: function(response) {
+                if (response.status) {
+                    if (response.data[0].hour == 0) {
+                        $('#a_time').val(response.data[0].min + ' นาที')
+                        curetime = response.data[0].min;
+                    } else if (response.data[0].min == 0) {
+                        $('#a_time').val(response.data[0].hour + ' ชั่วโมง')
+                        curetime = response.data[0].hour*60;
+                    } else {
+                        $('#a_time').val(response.data[0].hour + ' ชั่วโมง ' + response.data[0].min + ' นาที')
+                        curetime = response.data[0].hour*60+response.data[0].min*1
+                    }
+                } else {
+                    swal("เกิดข้อผิดพลาด!", {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
     function getPatient() {
         return $.ajax({
             type: 'post',
@@ -784,10 +919,7 @@
                     icon: "error",
                 });
             }
-        }).then(
-            function(response) {
-                return response.data;
-            });
+        });
     }
 
     function getDentist() {
@@ -848,5 +980,6 @@
         return color;
     }
 </script>
+<?php include '_footer.php'; ?>
 
 </html>
