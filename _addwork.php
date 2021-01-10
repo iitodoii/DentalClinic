@@ -6,19 +6,19 @@
     $day_id = $_POST['a_day'];
     $day_name = null;
     if($day_id == 1){
-        $day_name = 'Monday';
+        $day_name = 'วันจันทร์';
     }else if($day_id == 2){
-        $day_name = 'Tuesday';
+        $day_name = 'วันอังคาร';
     }else if($day_id == 3){
-        $day_name = 'Wednesday';
+        $day_name = 'วันพุธ';
     }else if($day_id == 4){
-        $day_name = 'Thursday';
+        $day_name = 'วันพฤหัส';
     }else if($day_id == 5){
-        $day_name = 'Friday';
+        $day_name = 'วันศุกร์';
     }else if($day_id == 6){
-        $day_name = 'Saturday';
+        $day_name = 'วันเสาร์';
     }else if($day_id == 7){
-        $day_name = 'Sunday';
+        $day_name = 'วันอาทิตย์';
     }
 
             
