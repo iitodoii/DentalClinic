@@ -37,9 +37,9 @@
             </div>
             <!-- /.card-header -->
             <?php $sql = "SELECT DISTINCT day_id id ,day_name dayname
-            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'Morning'),'') as 'morning'
-            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'Afternoon'),'') as 'afternoon'
-            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'Evening'),'') as 'evening'  FROM master_worktime w order by day_id";
+            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'เช้า'),'') as 'morning'
+            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'บ่าย'),'') as 'afternoon'
+            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'เย็น'),'') as 'evening'  FROM master_worktime w order by day_id";
             $result = $conn->query($sql);
             $myJson2 = json_encode($result);
 
@@ -182,21 +182,21 @@
                         <div class="form-group col-6">
                             <label for="inputCureName">วันที่เข้างาน <span class="text-danger">*</span></label>
                             <select class="form-control a_day" name="a_day" style="width: 100%;">
-                                <option value="1">Monday</option>
-                                <option value="2">Tuesday</option>
-                                <option value="3">Wednesday</option>
-                                <option value="4">Thursday</option>
-                                <option value="5">Friday</option>
-                                <option value="6">Saturday</option>
-                                <option value="7">Sunday</option>
+                                <option value="1">วันจันทร์</option>
+                                <option value="2">วันอังคาร</option>
+                                <option value="3">วันพุธ</option>
+                                <option value="4">วันพฤหัสบดี</option>
+                                <option value="5">วันศุกร์</option>
+                                <option value="6">วันเสาร์</option>
+                                <option value="7">วันอาทิตย์</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="inputCurePiece">กะงาน <span class="text-danger">*</span></label>
                             <select class="form-control a_shift" name="a_shift" style="width: 100%;">
-                                <option value="Morning">Morning</option>
-                                <option value="Afternoon">Afternoon</option>
-                                <option value="Evening">Evening</option>
+                                <option value="เช้า">เช้า</option>
+                                <option value="บ่าย">บ่าย</option>
+                                <option value="เย็น">เย็น</option>
                             </select>
                         </div>
                     </div>
@@ -233,21 +233,21 @@
                         <div class="form-group col-6">
                             <label for="inputCureName">วันที่เข้างาน <span class="text-danger">*</span></label>
                             <select class="form-control e_day" name="e_day" style="width: 100%;">
-                                <option value="1">Monday</option>
-                                <option value="2">Tuesday</option>
-                                <option value="3">Wednesday</option>
-                                <option value="4">Thursday</option>
-                                <option value="5">Friday</option>
-                                <option value="6">Saturday</option>
-                                <option value="7">Sunday</option>
+                                <option value="1">วันจันทร์</option>
+                                <option value="2">วันอังคาร</option>
+                                <option value="3">วันพุธ</option>
+                                <option value="4">วันพฤหัสบดี</option>
+                                <option value="5">วันศุกร์</option>
+                                <option value="6">วันเสาร์</option>
+                                <option value="7">วันอาทิตย์</option>
                             </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="inputCurePiece">กะงาน <span class="text-danger">*</span></label>
                             <select class="form-control e_shift" name="e_shift" style="width: 100%;">
-                                <option value="Morning">Morning</option>
-                                <option value="Afternoon">Afternoon</option>
-                                <option value="Evening">Evening</option>
+                                <option value="เช้า">เช้า</option>
+                                <option value="บ่าย">บ่าย</option>
+                                <option value="เย็น">เย็น</option>
                             </select>
                         </div>
                     </div>
