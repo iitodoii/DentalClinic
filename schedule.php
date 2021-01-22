@@ -137,7 +137,7 @@
                         </div>
                         <div class="form-group col-4">
                             <label>เวลาสิ้นสุด</label>
-                            <input type="text" class="form-control a_timepicker_end" name='a_end' />
+                            <input type="text" class="form-control a_timepicker_end" name='a_end' readonly="true" />
                             <!-- <div class="input-group date" id="a_end" data-target-input="nearest">
                                 <input type="text" name='a_end' class="form-control datetimepicker-input a_end" data-target="#a_end" disabled />
                                 <div class="input-group-append" data-target="#a_end" data-toggle="datetimepicker">
@@ -304,57 +304,6 @@
     }
 </style>
 
-<!-- Main content -->
-<script>
-    //     var Calendar = FullCalendar.Calendar;
-    //     var calendarEl = document.getElementById('calendar');
-    //     var calendar = new Calendar(calendarEl, {
-    //         header: {
-    //             left: "prev,next today",
-    //             center: "title",
-    //             right: "month,agendaWeek,agendaDay"
-    //         },
-    //         // defaultView: "month",
-    //         navLinks: true, // can click day/week names to navigate views
-    //         selectable: true,
-    //         selectHelper: false,
-    //         editable: true,
-    //         eventLimit: true, // allow "more" link when too many events
-
-    //         select: function(start, end) {
-    //             var title = prompt("Event Content:");
-    //             var eventData;
-    //             if (title) {
-    //                 eventData = {
-    //                     title: title,
-    //                     start: start,
-    //                     end: end
-    //                 };
-    //                 // $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
-    //             }
-    //             // $("#calendar").fullCalendar("unselect");
-    //         },
-
-    //         eventRender: function(event, element) {
-    //             element
-    //                 .find(".fc-content")
-    //                 .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
-    //             element.find(".closeon").on("click", function() {
-    //                 $("#calendar").fullCalendar("removeEvents", event._id);
-    //             });
-    //         },
-
-    //         eventClick: function(calEvent) {
-    //             var title = prompt("Edit Event Content:", calEvent.title);
-    //             calEvent.title = title;
-    //             $("#calendar").fullCalendar("updateEvent", calEvent);
-    //         }
-    //     });
-
-    //     calendar.render();
-    // });
-</script>
-
 <script>
     var curetime;
     $(document).ready(function() {
@@ -377,7 +326,16 @@
                 //     defaultTime: moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'),
                 //     zindex: 3500
                 // });
-                $('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                //$('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                
+                var param = {
+                    assign_date : $('#a_date').datetimepicker('date')._i,
+                    start_time : $('input.a_timepicker_start').val(),
+                    end_time : $('input.a_timepicker_end').val()
+                };
+
+                getDentist(param);
                 // $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
                 // $('input.a_timepicker_end').text(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'))
                 // var timepicker = element.timepicker();
@@ -386,10 +344,10 @@
                 
             }
         });
-        $('input.a_timepicker_end').timepicker({
-            timeFormat: 'H:mm',
-            zindex: 3500
-        });
+        // $('input.a_timepicker_end').timepicker({
+        //     timeFormat: 'H:mm',
+        //     zindex: 3500
+        // });
         
 
         // getPatient();
@@ -435,26 +393,6 @@
         })
         $('.a_patient_name').change(() => getPhone())
         $('.a_title').change(() => getCureTime())
-        // $('.a_start').change(() => {
-        //     swal('test');
-        // });
-        // $('#a_start').change(() => {
-        //     swal('test');
-        // });
-
-        //$('.a_start').on('dp.change', function(e){ swal('xx'); });
-        // $('.a_start').on('change', () => {
-        //     swal('test');
-        //     $('.a_end').val('09:15');
-        // });
-        // $('.a_start').on('change', function(e) {
-        //     swal('test');
-        //     $('.a_end').val('09:15');
-        // });
-        // $('#a_start').datetimepicker().on('dp.change', function (event) {
-        //         alert('!!!');
-        //     });
-
         $.validator.setDefaults({
             submitHandler: function(form) {
                 if (form.id == "add_event_form") {
@@ -705,36 +643,36 @@
                     }
                 }
             },
-            selectable: false,
+            selectable: true,
             selectHelper: false,
             editable: true,
             eventLimit: true,
             select: function(date) {
                 // swal('startDate:' + moment(date.start).format('DD/MMM/YYYY') + ' endDate:' + moment(date.end - 1).format('DD/MMM/YYYY'));
                 initColorPicker();
-                $('#modal-add-event').modal('show');
                 $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
+                $('#modal-add-event').modal('show');
                 // $('a_date').val(moment(date.start).format('DD/MMM/YYYY'));
             },
-            // eventClick: function(calEvent) {
-            //     // var title = 
-            //     // swal(calEvent.title);
-            //     // swal('id:' + calEvent.event.id + 'title' + calEvent.event.title);
-            //     $('#modal-edit-event').modal('show');
-            //     $.each(event_data, function(i, val) {
-            //         if (val.id == calEvent.event.id) {
-            //             $('#e_title').val(val.detaildata.event_name);
-            //             $('#e_date').datetimepicker('date', moment(val.detaildata.event_start).format('DD/MMM/YYYY'));
-            //             $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
-            //             $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
-            //             $('#e_patient_name').val(val.detaildata.patient_name);
-            //             $('#e_tel').val(val.detaildata.patient_phone);
-            //             $('#e_dentist').val(val.detaildata.dentist_name);
-            //         }
-            //     });
-                // calEvent.title = title;
-                // $("#calendar").fullCalendar("updateEvent", calEvent);
-            // }
+            eventClick: function(calEvent) {
+                // var title = 
+                // swal(calEvent.title);
+                // swal('id:' + calEvent.event.id + 'title' + calEvent.event.title);
+                $('#modal-edit-event').modal('show');
+                $.each(event_data, function(i, val) {
+                    if (val.id == calEvent.event.id) {
+                        $('#e_title').val(val.detaildata.event_name);
+                        $('#e_date').datetimepicker('date', moment(val.detaildata.event_start).format('DD/MMM/YYYY'));
+                        $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
+                        $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
+                        $('#e_patient_name').val(val.detaildata.patient_name);
+                        $('#e_tel').val(val.detaildata.patient_phone);
+                        $('#e_dentist').val(val.detaildata.dentist_name);
+                    }
+                });
+                calEvent.title = title;
+                $("#calendar").fullCalendar("updateEvent", calEvent);
+            }
         });
 
         calendar.render();
@@ -922,13 +860,15 @@
         });
     }
 
-    function getDentist() {
+    function getDentist(data) {
         $.ajax({
             type: 'post',
             url: '_getDentist.php',
+            data:data,
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
+                    $('.a_dentist_name').empty();
                     $.each(response.data, function(i, val) {
                         $('.a_dentist_name').append('<option value="' + val.id + '">' + val.text + '</option>')
                     });
