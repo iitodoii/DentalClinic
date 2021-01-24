@@ -14,7 +14,7 @@ try {
         $createdate = date('Y/m/d', strtotime($tempdate));
         $datetime = date_create($createdate);
         $use_date =  date_format($datetime,"Y/m/d");
-        $result = $conn->query("SELECT distinct id, CONCAT(firstname,' ',lastname) as 'text',w.* FROM master_user u JOIN master_worktime w on u.id = w.dentist_id where role = 'user' and
+        $result = $conn->query("SELECT distinct id, CONCAT(firstname,' ',lastname) as 'text' FROM master_user u JOIN master_worktime w on u.id = w.dentist_id where role = 'user' and
         (
             (w.shift = 'เช้า' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('09:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('16:00','%H:%i') )) or
             (w.shift = 'บ่าย' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('13:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('20:00','%H:%i') )) 

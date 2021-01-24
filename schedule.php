@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <?php include '_header.php'; ?>
-
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -25,7 +23,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <div class="sticky-top mb-3">
                         <div class="card">
                             <div class="card-header">
@@ -75,11 +73,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card card-primary">
-                        <div class="card-body p-0">
+                        <div class="card-body p-4">
                             <div id="calendar"></div>
                         </div>
                     </div>
@@ -117,7 +115,7 @@
                         <div class="form-group col-4">
                             <label>วันที่นัดหมาย</label>
                             <div class="input-group date" id="a_date" data-target-input="nearest">
-                                <input type="text" name='a_date' class="form-control datetimepicker-input" data-target="#a_date" />
+                                <input type="text" name='a_date' class="form-control datetimepicker-input a_date" data-target="#a_date" />
                                 <div class="input-group-append" data-target="#a_date" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -125,7 +123,6 @@
                         </div>
                         <div class="form-group col-4">
                             <label>เวลาเริ่มต้น</label>
-                            <!-- <input type="text" name='a_start' class="form-control timepicker"> -->
                             <input type="text" class="form-control a_timepicker_start" name='a_start' />
                             <!-- <div class="input-group date" id="a_start" data-target-input="nearest">
                                 <input type="text" name='a_start' class="form-control datetimepicker-input a_start" data-target="#a_start" />
@@ -215,13 +212,18 @@
             <form id='edit_event_form' style="overflow-y: scroll">
                 <div class="modal-body">
                     <div class="form-row">
+                        <div class="form-group d-none">
+                            <label for="e_id">id</label>
+                            <input type="text" name="e_id" class="form-control" id="e_id">
+                        </div>
                         <div class="form-group col-6">
                             <label for="e_title">รายการนัดรักษา</label>
-                            <input type="text" name="e_title" class="form-control" id="e_title" placeholder="รายการนัดรักษา">
+                            <select class="form-control e_title" name="e_title" style="width: 100%;">
+                            </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="e_time">เวลาในการรักษา</label>
-                            <input type="text" name="e_time" class="form-control" id="e_time" placeholder="เวลาในการรักษา">
+                            <input type="text" name="e_time" class="form-control" id="e_time" placeholder="เวลาในการรักษา" autocomplete="false" disabled>
                         </div>
                     </div>
                     <div class="form-row">
@@ -235,41 +237,44 @@
                             </div>
                         </div>
                         <div class="form-group col-4">
-                            <label>เวลาเริ่มต้น</label>
+                            <!-- <label>เวลาเริ่มต้น</label>
                             <div class="input-group date" id="e_start" data-target-input="nearest">
                                 <input type="text" name='e_start' class="form-control datetimepicker-input" data-target="#e_start" />
                                 <div class="input-group-append" data-target="#e_start" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="far fa-clock"></i></div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <label>เวลาเริ่มต้น</label>
+                            <input type="text" class="form-control e_timepicker_start" name='e_start' />
                         </div>
                         <div class="form-group col-4">
                             <label>เวลาสิ้นสุด</label>
-                            <div class="input-group date" id="e_end" data-target-input="nearest">
-                                <input type="text" name='e_end' class="form-control datetimepicker-input" data-target="#e_end" />
-                                <div class="input-group-append" data-target="#e_end" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control e_timepicker_end" name='e_end' readonly="true" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label for="e_patient_name">ชื่อ-นามสกุล ผู้ป่วย</label>
-                            <input type="text" name="e_patient_name" class="form-control" id="e_patient_name" placeholder="ชื่อ-นามสกุล ผู้ป่วย">
+                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <select class="form-control e_patient_name" name="e_patient_name" style="width: 100%;">
+                            </select>
                         </div>
                         <div class="form-group col-6">
                             <label for="e_tel">เบอร์โทรศัพท์ </label>
-                            <input type="text" name="e_tel" class="form-control" id="e_tel" placeholder="เบอร์โทรศัพท์">
+                            <input type="text" name="e_tel" class="form-control" id="e_tel" placeholder="เบอร์โทรศัพท์" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="e_dentist">ชื่อแพทย์ผู้รับผิดชอบ</label>
-                        <input type="text" name="e_dentist" class="form-control" id="e_dentist" placeholder="ชื่อแพทย์ผู้รับผิดชอบ">
+                        <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
+                        <select class="form-control e_dentist_name" name="e_dentist_name" style="width: 100%;">
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <div class="d-flex justify-content-center">
+                        <a href="javascript:delete_event()" class='btn btn-success mr-4'> ยืนยันการทำรายการ </a>
+                        <a href="javascript:delete_event()" class='btn btn-danger'> ยกเลิกนัด </a>
+                    </div>
                     <button type="submit" class="btn btn-primary">แก้ไข</button>
                 </div>
             </form>
@@ -313,45 +318,44 @@
             timeFormat: 'H:mm',
             minTime: '9',
             maxTime: '20',
-            defaultDate:'9:00',
+            defaultDate: '9:00',
             zindex: 3500,
             change: function(time) {
-                // var element = $(this),
-                //     text;
-                // alert($('#a_time').val());
-                // $('input.a_timepicker_end').timepicker({
-                //     timeFormat: 'H:mm',
-                //     minTime: '9',
-                //     maxTime: '20',
-                //     defaultTime: moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'),
-                //     zindex: 3500
-                // });
-                $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+                $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(), 'hh:mm').add(curetime, 'minutes').format('HH:mm'));
                 //$('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
-                
+
                 var param = {
-                    assign_date : $('#a_date').datetimepicker('date')._i,
-                    start_time : $('input.a_timepicker_start').val(),
-                    end_time : $('input.a_timepicker_end').val()
+                    assign_date: moment($('#a_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),
+                    start_time: $('input.a_timepicker_start').val(),
+                    end_time: $('input.a_timepicker_end').val()
                 };
 
                 getDentist(param);
-                // $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
-                // $('input.a_timepicker_end').text(moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'))
-                // var timepicker = element.timepicker();
-                // text = 'Selected time is: ' + timepicker.format(time);
-                // element.siblings('span.help-line').text(text);
-                
+
             }
         });
-        // $('input.a_timepicker_end').timepicker({
-        //     timeFormat: 'H:mm',
-        //     zindex: 3500
-        // });
-        
 
-        // getPatient();
-        // getDentist();
+        $('input.e_timepicker_start').timepicker({
+            timeFormat: 'H:mm',
+            minTime: '9',
+            maxTime: '20',
+            defaultDate: '9:00',
+            zindex: 3500,
+            change: function(time) {
+                $('input.e_timepicker_end').val(moment.utc($('input.e_timepicker_start').val(), 'hh:mm').add(curetime, 'minutes').format('HH:mm'));
+                //$('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
+
+                var param = {
+                    assign_date: moment($('#e_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),
+                    start_time: $('input.e_timepicker_start').val(),
+                    end_time: $('input.e_timepicker_end').val()
+                };
+
+                getDentist(param);
+
+            }
+        });
+
         /* ADDING EVENTS */
         var currColor = '#3c8dbc' //Red by default
         //Color chooser button
@@ -392,14 +396,19 @@
             $('#new-event').val('')
         })
         $('.a_patient_name').change(() => getPhone())
+        $('.e_patient_name').change(() => getPhoneEditMode())
         $('.a_title').change(() => getCureTime())
+        $('.e_title').change(() => {
+            getCureTimeEditMode().then(() => {
+                $('input.e_timepicker_end').val(moment.utc($('input.e_timepicker_start').val(), 'hh:mm').add(curetime, 'minutes').format('HH:mm'));
+            });
+        })
         $.validator.setDefaults({
             submitHandler: function(form) {
                 if (form.id == "add_event_form") {
                     add_event();
-                    // swal('Hello');
                 } else if (form.id == "edit_event_form") {
-                    edituser();
+                    edit_event();
                 }
             }
         });
@@ -469,21 +478,15 @@
             }
         });
 
-        $('#edituserform').validate({
+        $('#edit_event_form').validate({
             rules: {
-                u_firstname: {
-                    required: true
-                },
-                u_lastname: {
+                e_start: {
                     required: true
                 }
             },
             messages: {
-                u_firstname: {
-                    required: "Please enter a firstname",
-                },
-                u_lastname: {
-                    required: "Please enter a lastname",
+                e_start: {
+                    required: "Please enter a start time",
                 }
             },
             errorElement: 'span',
@@ -531,6 +534,99 @@
         });
     }
 
+    function edit_event() {
+        var form_data = new FormData($('#edit_event_form')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '_editevent.php',
+            data: form_data,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.status >= 0) {
+                    swal("เรียบร้อย แก้ไขข้อมูลเรียบร้อย!", {
+                        icon: "success"
+                    }).then((e) => {
+                        $('#modal-edit-event').modal('hide');
+                        genCalendarData();
+                        // window.location.href = "managepatient.php"
+                    });
+                } else {
+                    swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal('error');
+            }
+        });
+    }
+
+    function delete_event() {
+        swal({
+            title: "แน่ใจหรือไม่ ?",
+            text: "คุณต้องการยกเลิกนัดนี้หรือไม่",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'post', //วิธีการส่ง
+                    url: '_deleteuser.php', //หน้าที่จะไป
+                    data: {
+                        id: id
+                    }, //parameter ที่ส่งไป
+                    dataType: 'json', //Type ข้อมูลที่ส่งกลับมา
+                    success: function(response) {
+                        if (response.status) {
+                            swal("เรียบร้อย ลบข้อมูลเสร็จสิ้น!", {
+                                icon: "success"
+                            }).then((e) => {
+                                window.location.href = "manageuser.php"
+                            });
+                        } else {
+                            swal("เกิดข้อผิดพลาด!", {
+                                icon: "error",
+                            });
+                        }
+                    },
+                    error: function(e) {}
+                });
+            } else {
+                swal("ปฏิเสธ ข้อมูลของท่านยังไม่ถูกลบ!");
+            }
+        });
+        // var form_data = new FormData($('#edit_event_form')[0]);
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '_editevent.php',
+        //     data: form_data,
+        //     dataType: 'json',
+        //     processData: false,
+        //     contentType: false,
+        //     success: function(response) {
+        //         if (response.status >= 0) {
+        //             swal("เรียบร้อย แก้ไขข้อมูลเรียบร้อย!", {
+        //                 icon: "success"
+        //             }).then((e) => {
+        //                 $('#modal-edit-event').modal('hide');
+        //                 genCalendarData();
+        //                 // window.location.href = "managepatient.php"
+        //             });
+        //         } else {
+        //             swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
+        //                 icon: "error",
+        //             });
+        //         }
+        //     },
+        //     error: function(e) {
+        //         swal('error');
+        //     }
+        // });
+    }
 
     function genCalendarData() {
         var event_data = [];
@@ -588,18 +684,18 @@
         // initialize the external events
         // -----------------------------------------------------------------
 
-        new Draggable(containerEl, {
-            itemSelector: '.external-event',
-            eventData: function(eventEl) {
-                console.log(eventEl);
-                return {
-                    title: eventEl.innerText,
-                    backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                    borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                    textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
-                };
-            }
-        });
+        // new Draggable(containerEl, {
+        //     itemSelector: '.external-event',
+        //     eventData: function(eventEl) {
+        //         console.log(eventEl);
+        //         return {
+        //             title: eventEl.innerText,
+        //             backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+        //             borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+        //             textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
+        //         };
+        //     }
+        // });
 
         var calendar = new Calendar(calendarEl, {
             plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
@@ -609,6 +705,7 @@
                 // center: 'addEventButton',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
+            height: 600,
             validRange: {
                 start: '2000-01-01' //moment().format('YYYY-MM-DD')
             },
@@ -649,9 +746,15 @@
             eventLimit: true,
             select: function(date) {
                 // swal('startDate:' + moment(date.start).format('DD/MMM/YYYY') + ' endDate:' + moment(date.end - 1).format('DD/MMM/YYYY'));
-                initColorPicker();
-                $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
-                $('#modal-add-event').modal('show');
+                if (date.start >= moment()) {
+                    initColorPicker();
+                    getDentist();
+                    $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
+                    $('#modal-add-event').modal('show');
+                } else {
+                    swal("เลือกไม่ได้", "ท่านไม่สามารถนัดหมายวันที่ผ่านมาแล้วได้!", "warning");
+                }
+
                 // $('a_date').val(moment(date.start).format('DD/MMM/YYYY'));
             },
             eventClick: function(calEvent) {
@@ -661,17 +764,21 @@
                 $('#modal-edit-event').modal('show');
                 $.each(event_data, function(i, val) {
                     if (val.id == calEvent.event.id) {
+                        $('#e_id').val(val.detaildata.id);
                         $('#e_title').val(val.detaildata.event_name);
+                        getCureTimeEditMode();
                         $('#e_date').datetimepicker('date', moment(val.detaildata.event_start).format('DD/MMM/YYYY'));
-                        $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
-                        $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
+                        // $('#e_start').datetimepicker('date', moment(val.detaildata.event_start).format('h:mm a'));
+                        $('input.e_timepicker_start').val(moment(val.detaildata.event_start).format('H:mm'));
+                        $('input.e_timepicker_end').val(moment(val.detaildata.event_end).format('H:mm'));
+                        // $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
                         $('#e_patient_name').val(val.detaildata.patient_name);
                         $('#e_tel').val(val.detaildata.patient_phone);
                         $('#e_dentist').val(val.detaildata.dentist_name);
                     }
                 });
-                calEvent.title = title;
-                $("#calendar").fullCalendar("updateEvent", calEvent);
+                // calEvent.title = title;
+                // $("#calendar").fullCalendar("updateEvent", calEvent);
             }
         });
 
@@ -712,18 +819,6 @@
             minDate: date.setDate(date.getDate() - 1)
         });
 
-        $('#a_start').datetimepicker({
-            stepping: 30,
-            enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-            format: 'HH:mm',
-            onDatesChange: function() {
-                swal('test');
-            },
-            onSelect: function() {
-                swal('test');
-            }
-        });
-
         $('#e_end').datetimepicker({
             stepping: 30,
             enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
@@ -742,6 +837,19 @@
             stepping: 30,
             enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
             format: 'HH:mm'
+        });
+        $('#a_date').on("change.datetimepicker", () => {
+
+            var param = {
+                assign_date: moment($('#a_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),
+                start_time: $('input.a_timepicker_start').val(),
+                end_time: $('input.a_timepicker_end').val()
+            };
+            if (param.start_time != "" && param.end_time != "") {
+                getDentist(param);
+            }
+            // if(param.s)
+
         });
 
         // $('#a_end').datetimepicker({
@@ -787,6 +895,7 @@
                 if (response.status) {
                     $.each(response.data, function(i, val) {
                         $('.a_title').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.e_title').append('<option value="' + val.id + '">' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -817,10 +926,44 @@
                         curetime = response.data[0].min;
                     } else if (response.data[0].min == 0) {
                         $('#a_time').val(response.data[0].hour + ' ชั่วโมง')
-                        curetime = response.data[0].hour*60;
+                        curetime = response.data[0].hour * 60;
                     } else {
                         $('#a_time').val(response.data[0].hour + ' ชั่วโมง ' + response.data[0].min + ' นาที')
-                        curetime = response.data[0].hour*60+response.data[0].min*1
+                        curetime = response.data[0].hour * 60 + response.data[0].min * 1
+                    }
+                } else {
+                    swal("เกิดข้อผิดพลาด!", {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function getCureTimeEditMode() {
+        return $.ajax({
+            type: 'post',
+            url: '_getCure.php',
+            dataType: 'json',
+            data: {
+                id: $('.e_title').val()
+            },
+            success: function(response) {
+                if (response.status) {
+                    if (response.data[0].hour == 0) {
+                        $('#e_time').val(response.data[0].min + ' นาที')
+                        curetime = response.data[0].min;
+                    } else if (response.data[0].min == 0) {
+                        $('#e_time').val(response.data[0].hour + ' ชั่วโมง')
+                        curetime = response.data[0].hour * 60;
+                    } else {
+                        $('#e_time').val(response.data[0].hour + ' ชั่วโมง ' + response.data[0].min + ' นาที')
+                        curetime = response.data[0].hour * 60 + response.data[0].min * 1
                     }
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
@@ -845,6 +988,7 @@
                 if (response.status) {
                     $.each(response.data, function(i, val) {
                         $('.a_patient_name').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.e_patient_name').append('<option value="' + val.id + '">' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -864,13 +1008,15 @@
         $.ajax({
             type: 'post',
             url: '_getDentist.php',
-            data:data,
+            data: data,
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
                     $('.a_dentist_name').empty();
+                    $('.e_dentist_name').empty();
                     $.each(response.data, function(i, val) {
                         $('.a_dentist_name').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.e_dentist_name').append('<option value="' + val.id + '">' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
@@ -897,6 +1043,31 @@
             success: function(response) {
                 if (response.status) {
                     $('#a_tel').val(response.data[0].phone)
+                } else {
+                    swal("เกิดข้อผิดพลาด!", {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function getPhoneEditMode() {
+        $.ajax({
+            type: 'post',
+            url: '_getPatient.php',
+            dataType: 'json',
+            data: {
+                id: $('.e_patient_name').val()
+            },
+            success: function(response) {
+                if (response.status) {
+                    $('#e_tel').val(response.data[0].phone)
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
                         icon: "error",

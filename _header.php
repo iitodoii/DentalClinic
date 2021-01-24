@@ -5,6 +5,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="plugins/jquery/jquery.min.js"></script>
+    <link rel="icon" href="img/tooth_2.png">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">

@@ -3,8 +3,9 @@
 <?php include '_header.php'; ?>
 
 
-<div class="content-wrapper">
+<div style='background-image:url("img/Civitas_Architects.jpeg")' class="content-wrapper">
     <!-- Content Header (Page header) -->
+    
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -96,95 +97,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id='add_event_form' style="overflow-y: scroll">
-                <div class="modal-body">
-                    <!-- <div class="row" style="overflow-y:scroll;height:40vh"> -->
-                    <!-- disabled -->
-                    <div class="form-group">
-                        <label for="a_title">ชื่อนัดหมาย</label>
-                        <input type="text" name="a_title" class="form-control" id="a_title" placeholder="ชื่อนัดหมาย">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-4">
-                            <label>วันที่นัดหมาย</label>
-                            <div class="input-group date" id="a_date" data-target-input="nearest">
-                                <input type="text" name='a_date' class="form-control datetimepicker-input" data-target="#a_date" />
-                                <div class="input-group-append" data-target="#a_date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-4">
-                            <label>เวลาเริ่มต้น</label>
-                            <div class="input-group date" id="a_start" data-target-input="nearest">
-                                <input type="text" name='a_start' class="form-control datetimepicker-input" data-target="#a_start" />
-                                <div class="input-group-append" data-target="#a_start" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-4">
-                            <label>เวลาสิ้นสุด</label>
-                            <div class="input-group date" id="a_end" data-target-input="nearest">
-                                <input type="text" name='a_end' class="form-control datetimepicker-input" data-target="#a_end" />
-                                <div class="input-group-append" data-target="#a_end" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
-                            <select class="form-control a_patient_name" name="a_patient_name" style="width: 100%;">
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="a_tel">เบอร์โทรศัพท์ </label>
-                            <input type="text" name="a_tel" class="form-control" id="a_tel" placeholder="เบอร์โทรศัพท์" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
-                        <select class="form-control a_dentist_name" name="a_dentist_name" style="width: 100%;">
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-5">
-                            <label>สีพื้นหลัง</label>
-                            <div class="input-group a_backgroundColor">
-                                <input type="text" name="a_backgroundColor" class="form-control">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-5">
-                            <label>สีเส้นขอบ</label>
-                            <div class="input-group a_borderColor">
-                                <input type="text" name="a_borderColor" class="form-control">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-2">
-                            <label>สุ่มสีใหม่</label>
-                            <button type="button" class="btn btn-block btn-default active" onclick="initColorPicker()">
-                                <i class="fas fa-random"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group d-none">
-                        <label for="a_isAllday">isAllday</label>
-                        <input type="text" name="a_isAllday" class="form-control" id="a_isAllday" value="false">
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                    <button type="submit" class="btn btn-primary">เพิ่ม</button>
-                </div>
-            </form>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -199,61 +111,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id='edit_event_form' style="overflow-y: scroll">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="e_title">ชื่อนัดหมาย</label>
-                        <input type="text" name="e_title" class="form-control" id="e_title" placeholder="ขื่อนัดหมาย">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-4">
-                            <label>วันที่นัดหมาย</label>
-                            <div class="input-group date" id="e_date" data-target-input="nearest">
-                                <input type="text" name='e_date' class="form-control datetimepicker-input" data-target="#e_date" />
-                                <div class="input-group-append" data-target="#e_date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-4">
-                            <label>เวลาเริ่มต้น</label>
-                            <div class="input-group date" id="e_start" data-target-input="nearest">
-                                <input type="text" name='e_start' class="form-control datetimepicker-input" data-target="#e_start" />
-                                <div class="input-group-append" data-target="#e_start" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-4">
-                            <label>เวลาสิ้นสุด</label>
-                            <div class="input-group date" id="e_end" data-target-input="nearest">
-                                <input type="text" name='e_end' class="form-control datetimepicker-input" data-target="#e_end" />
-                                <div class="input-group-append" data-target="#e_end" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="e_patient_name">ชื่อ-นามสกุล ผู้ป่วย</label>
-                            <input type="text" name="e_patient_name" class="form-control" id="e_patient_name" placeholder="ชื่อ-นามสกุล ผู้ป่วย">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="e_tel">เบอร์โทรศัพท์ </label>
-                            <input type="text" name="e_tel" class="form-control" id="e_tel" placeholder="เบอร์โทรศัพท์">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="e_dentist">ชื่อแพทย์ผู้รับผิดชอบ</label>
-                        <input type="text" name="e_dentist" class="form-control" id="e_dentist" placeholder="ชื่อแพทย์ผู้รับผิดชอบ">
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                    <button type="submit" class="btn btn-primary">แก้ไข</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
