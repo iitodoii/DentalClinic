@@ -25,7 +25,7 @@
     $result = $conn->query("UPDATE `master_worktime` SET 
     `day_id`='$day_id',`day_name`='$day_name',
     `shift`='$shift',`dentist_id`='$dentist_id'
-    WHERE worktime_id = '$worktime'");
+    WHERE work_id = '$worktime'");
 
     if($conn->affected_rows>=0)
     {
@@ -42,6 +42,7 @@
             'status'=>false
         );
         $myJson = json_encode($list);
+        echo $myJson;
     }
     exit();
 ?>

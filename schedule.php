@@ -102,6 +102,17 @@
                     <!-- disabled -->
                     <div class="form-row">
                         <div class="form-group col-6">
+                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <select class="form-control a_patient_name" name="a_patient_name" style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="a_tel">เบอร์โทรศัพท์ </label>
+                            <input type="text" name="a_tel" class="form-control" id="a_tel" placeholder="เบอร์โทรศัพท์" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
                             <label for="a_title">รายการนัดรักษา</label>
                             <select class="form-control a_title" name="a_title" style="width: 100%;">
                             </select>
@@ -143,27 +154,16 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
-                            <select class="form-control a_patient_name" name="a_patient_name" style="width: 100%;">
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="a_tel">เบอร์โทรศัพท์ </label>
-                            <input type="text" name="a_tel" class="form-control" id="a_tel" placeholder="เบอร์โทรศัพท์" disabled>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
                         <select class="form-control a_dentist_name" name="a_dentist_name" style="width: 100%;">
                         </select>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-5">
+                        <div class="form-group col-5 d-none">
                             <label>สีพื้นหลัง</label>
                             <div class="input-group a_backgroundColor">
-                                <input type="text" name="a_backgroundColor" class="form-control">
+                                <input type="text" name="a_backgroundColor" class="form-control" value="#007BFF">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-square"></i></span>
                                 </div>
@@ -172,13 +172,13 @@
                         <div class="form-group col-5 d-none">
                             <label>สีเส้นขอบ</label>
                             <div class="input-group a_borderColor">
-                                <input type="text" name="a_borderColor" class="form-control">
+                                <input type="text" name="a_borderColor" class="form-control" value="#007BFF">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-square"></i></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-2">
+                        <div class="form-group col-2 d-none">
                             <label>สุ่มสีใหม่</label>
                             <button type="button" class="btn btn-block btn-default active" onclick="initColorPicker()">
                                 <i class="fas fa-random"></i>
@@ -211,6 +211,17 @@
             </div>
             <form id='edit_event_form' style="overflow-y: scroll">
                 <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <select class="form-control e_patient_name" name="e_patient_name" style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="e_tel">เบอร์โทรศัพท์ </label>
+                            <input type="text" name="e_tel" class="form-control" id="e_tel" placeholder="เบอร์โทรศัพท์" disabled>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group d-none">
                             <label for="e_id">id</label>
@@ -252,17 +263,6 @@
                             <input type="text" class="form-control e_timepicker_end" name='e_end' readonly="true" />
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
-                            <select class="form-control e_patient_name" name="e_patient_name" style="width: 100%;">
-                            </select>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="e_tel">เบอร์โทรศัพท์ </label>
-                            <input type="text" name="e_tel" class="form-control" id="e_tel" placeholder="เบอร์โทรศัพท์" disabled>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
                         <select class="form-control e_dentist_name" name="e_dentist_name" style="width: 100%;">
@@ -272,7 +272,7 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:delete_event()" class='btn btn-success mr-4'> ยืนยันการทำรายการ </a>
+                        <a href="javascript:confirm_event()" class='btn btn-success mr-4'> ยืนยันการทำรายการ </a>
                         <a href="javascript:delete_event()" class='btn btn-danger'> ยกเลิกนัด </a>
                     </div>
                     <button type="submit" class="btn btn-primary">แก้ไข</button>
@@ -311,6 +311,7 @@
 
 <script>
     var curetime;
+    var alldata = [];
     $(document).ready(function() {
         initialData();
         genCalendarData();
@@ -505,6 +506,11 @@
     });
 
     function add_event() {
+        // let start =  $('.a_timepicker_start').val();
+        // let end = $('.a_timepicker_end').val();
+        // console.log(alldata);
+        // if(start >= alldata.event_start)
+        // moment(alldata[0].event_start) <= moment(alldata[0].event_end)
         var form_data = new FormData($('#add_event_form')[0]);
         $.ajax({
             type: 'POST',
@@ -565,6 +571,7 @@
     }
 
     function delete_event() {
+        var id = $('#e_id').val();
         swal({
             title: "แน่ใจหรือไม่ ?",
             text: "คุณต้องการยกเลิกนัดนี้หรือไม่",
@@ -575,7 +582,7 @@
             if (willDelete) {
                 $.ajax({
                     type: 'post', //วิธีการส่ง
-                    url: '_deleteuser.php', //หน้าที่จะไป
+                    url: '_deleteschedule.php', //หน้าที่จะไป
                     data: {
                         id: id
                     }, //parameter ที่ส่งไป
@@ -585,7 +592,7 @@
                             swal("เรียบร้อย ลบข้อมูลเสร็จสิ้น!", {
                                 icon: "success"
                             }).then((e) => {
-                                window.location.href = "manageuser.php"
+                                window.location.href = "schedule.php"
                             });
                         } else {
                             swal("เกิดข้อผิดพลาด!", {
@@ -599,33 +606,44 @@
                 swal("ปฏิเสธ ข้อมูลของท่านยังไม่ถูกลบ!");
             }
         });
-        // var form_data = new FormData($('#edit_event_form')[0]);
-        // $.ajax({
-        //     type: 'POST',
-        //     url: '_editevent.php',
-        //     data: form_data,
-        //     dataType: 'json',
-        //     processData: false,
-        //     contentType: false,
-        //     success: function(response) {
-        //         if (response.status >= 0) {
-        //             swal("เรียบร้อย แก้ไขข้อมูลเรียบร้อย!", {
-        //                 icon: "success"
-        //             }).then((e) => {
-        //                 $('#modal-edit-event').modal('hide');
-        //                 genCalendarData();
-        //                 // window.location.href = "managepatient.php"
-        //             });
-        //         } else {
-        //             swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
-        //                 icon: "error",
-        //             });
-        //         }
-        //     },
-        //     error: function(e) {
-        //         swal('error');
-        //     }
-        // });
+    }
+
+    function confirm_event() {
+        var id = $('#e_id').val();
+        swal({
+            title: "แน่ใจหรือไม่ ?",
+            text: "คุณต้องการยืนยันนัดนี้หรือไม่",
+            icon: "info",
+            buttons: true,
+            dangerMode: false,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'post', //วิธีการส่ง
+                    url: '_deleteschedule.php', //หน้าที่จะไป
+                    data: {
+                        id: id
+                    }, //parameter ที่ส่งไป
+                    dataType: 'json', //Type ข้อมูลที่ส่งกลับมา
+                    success: function(response) {
+                        if (response.status) {
+                            swal("เรียบร้อย ยืนยันทำรายการเรียบร้อย!", {
+                                icon: "success"
+                            }).then((e) => {
+                                window.location.href = "schedule.php"
+                            });
+                        } else {
+                            swal("เกิดข้อผิดพลาด!", {
+                                icon: "error",
+                            });
+                        }
+                    },
+                    error: function(e) {}
+                });
+            } else {
+                swal("ปฏิเสธ ยังไม่ได้ทำการยืนยัน!");
+            }
+        });
     }
 
     function genCalendarData() {
@@ -636,6 +654,7 @@
             dataType: 'json', //Type ข้อมูลที่ส่งกลับมา
             success: function(response) {
                 if (response.status) {
+                    alldata = response.data;
                     $.each(response.data, function(i, val) {
                         event_data.push({
                             id: val.id,
@@ -712,8 +731,12 @@
             'themeSystem': 'bootstrap',
             //Random default events
             events: event_data,
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
+            eventTimeFormat: { 
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12:false
+            },
+            droppable: false, // this allows things to be dropped onto the calendar !!!
             drop: function(info) {
                 // is the "remove after drop" checkbox checked?
                 if (checkbox.checked) {
@@ -747,7 +770,7 @@
             select: function(date) {
                 // swal('startDate:' + moment(date.start).format('DD/MMM/YYYY') + ' endDate:' + moment(date.end - 1).format('DD/MMM/YYYY'));
                 if (date.start >= moment()) {
-                    initColorPicker();
+                    //initColorPicker();
                     getDentist();
                     $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
                     $('#modal-add-event').modal('show');
@@ -812,6 +835,10 @@
         getCure().then(() => {
             getCureTime()
         });
+        $('.a_patient_name').select2();
+        $('.a_dentist_name').select2();
+        $('.e_patient_name').select2();
+        $('.e_dentist_name').select2();
         var date = new Date();
         $('#e_date').datetimepicker({
             "singleDatePicker": true,
@@ -987,8 +1014,8 @@
             success: function(response) {
                 if (response.status) {
                     $.each(response.data, function(i, val) {
-                        $('.a_patient_name').append('<option value="' + val.id + '">' + val.text + '</option>')
-                        $('.e_patient_name').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.a_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
+                        $('.e_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -1015,8 +1042,8 @@
                     $('.a_dentist_name').empty();
                     $('.e_dentist_name').empty();
                     $.each(response.data, function(i, val) {
-                        $('.a_dentist_name').append('<option value="' + val.id + '">' + val.text + '</option>')
-                        $('.e_dentist_name').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.a_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
+                        $('.e_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด!", {

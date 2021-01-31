@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
     <script src="plugins/select2/js/select2.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- JQVMap -->
@@ -60,6 +62,13 @@
 
     .hidetext {
         -webkit-text-security: disc;
+    }
+    .select2 {
+        height: calc(2.25rem + 2px);
+    }
+
+    .select2-selection {
+        height: calc(2.25rem + 2px) !important;
     }
 </style>
 
@@ -186,7 +195,7 @@ $obj = mysqli_fetch_object($result)
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="managemedicalhistory.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ประวัติการรักษา</p>
                                     </a>

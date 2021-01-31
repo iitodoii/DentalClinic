@@ -5,7 +5,7 @@
 
 <div style='background-image:url("img/Civitas_Architects.jpeg")' class="content-wrapper">
     <!-- Content Header (Page header) -->
-    
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -184,7 +184,11 @@
 
 <script>
     $(document).ready(function() {
-        $('input.timepicker').timepicker({ timeFormat: 'h:mm:ss p' });
+        $('.js-example-basic-multiple').select2();
+        $('.js-example-basic-multiple-2').select2();
+        $('input.timepicker').timepicker({
+            timeFormat: 'h:mm:ss p'
+        });
         initialData();
         genCalendarData();
         // getPatient();

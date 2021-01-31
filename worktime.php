@@ -126,7 +126,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-nowrap">วัน</th>
-                            <th class="text-nowrap">กะเข้างาน</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงาน</th>
                             <th class="text-nowrap">แพทย์</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
@@ -141,8 +141,8 @@
                                 echo "<td>" . $row["day_name"] . "</td>" .
                                     "<td>" . $row["shift"] . "</td>" .
                                     "<td>" . $row["dentist_name"] . "</td>" .
-                                    "<td>" . "<a href=\"javascript:bindData('" . $row["worktime_id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
-                                    "<td>" . "<a href=\"javascript:deleteworktime('" . $row["worktime_id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
+                                    "<td>" . "<a href=\"javascript:bindData('" . $row["work_id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
+                                    "<td>" . "<a href=\"javascript:deleteworktime('" . $row["work_id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
                                     "</tr>";
                             }
                         } else {
@@ -153,7 +153,7 @@
                     <tfoot>
                         <tr>
                             <th class="text-nowrap">วัน</th>
-                            <th class="text-nowrap">กะ</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงาน</th>
                             <th class="text-nowrap">แพทย์</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
@@ -574,32 +574,10 @@
 
         $('#editworkform').validate({
             rules: {
-                u_curename: {
-                    required: true
-                },
-                u_curepiece: {
-                    required: true
-                },
-                u_curehour: {
-                    required: true
-                },
-                u_curemin: {
-                    required: true
-                }
+
             },
             messages: {
-                u_curename: {
-                    required: "Please enter a curename",
-                },
-                u_curepiece: {
-                    required: "Please enter a curepiece",
-                },
-                u_curehour: {
-                    required: "Please endter a hour",
-                },
-                u_curemin: {
-                    required: "Please endter a minute",
-                },
+
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
@@ -732,9 +710,9 @@
         var all = <?php echo json_encode($myArray); ?>;
         $('#modal-update').modal('show');
         $.each(all, function(i, val) {
-            if (val.worktime_id == id) {
+            if (val.work_id == id) {
                 // $('#u_id').val(val.shift);
-                $('.e_id').val(val.worktime_id);
+                $('.e_id').val(val.work_id);
                 $('.e_day').val(val.day_id);
                 $('.e_shift').val(val.shift);
                 $('.e_dentist_name').val(val.dentist_id);

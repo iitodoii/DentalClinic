@@ -8,7 +8,7 @@ try {
         $id = $_POST['id'];
     }
     $result = $conn->query("SELECT id as id,cure_name as 'text',
-    cure_time_hour as 'hour',cure_time_minute as 'min' FROM master_cure WHERE id = '$id' or '$id' = 'no' ");
+    cure_time_hour as 'hour',cure_time_minute as 'min',cure_piece FROM master_cure WHERE id = '$id' or '$id' = 'no' ");
 
     $resultArray = array();
     while($row = $result->fetch_assoc()) {

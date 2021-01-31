@@ -3,7 +3,7 @@
     session_start();
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
-        $result = $conn->query("DELETE FROM `master_worktime` WHERE work_id='$id'");
+        $result = $conn->query("DELETE FROM `master_schedule` WHERE id='$id'");
         if($conn->affected_rows!=null)
         {
             $list = array(

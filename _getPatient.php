@@ -7,7 +7,7 @@ try {
     {
         $id = $_POST['id'];
     }
-    $result = $conn->query("SELECT patient_id as id,CONCAT(firstname,' ',lastname) as 'text',phone FROM master_patient WHERE patient_id = '$id' or '$id' = 'no' ");
+    $result = $conn->query("SELECT patient_id as id,CONCAT(firstname,' ',lastname) as 'text',phone,drug_allergy FROM master_patient WHERE patient_id = '$id' or '$id' = 'no' ");
 
     // $result->status = true;
 
