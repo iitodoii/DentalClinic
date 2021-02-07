@@ -17,7 +17,8 @@ try {
         $result = $conn->query("SELECT distinct id, CONCAT(firstname,' ',lastname) as 'text' FROM master_user u JOIN master_worktime w on u.id = w.dentist_id where role = 'user' and
         (
             (w.shift = 'เช้า' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('09:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('16:00','%H:%i') )) or
-            (w.shift = 'บ่าย' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('13:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('20:00','%H:%i') )) 
+            (w.shift = 'บ่าย' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('13:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('20:00','%H:%i') )) or
+            (w.shift = 'ทั้งวัน' and (STR_TO_DATE('$start_time','%H:%i') >= STR_TO_DATE('09:00','%H:%i') and STR_TO_DATE('$end_time','%H:%i') <= STR_TO_DATE('20:00','%H:%i') )) 
         ) and w.day_id = DAYOFWEEK('$use_date')-1 group by id");
     }
     else

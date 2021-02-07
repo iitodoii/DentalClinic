@@ -39,6 +39,7 @@
             <?php $sql = "SELECT DISTINCT day_id id ,day_name dayname
             ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'เช้า'),'') as 'morning'
             ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'บ่าย'),'') as 'afternoon' 
+            ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'ทั้งวัน'),'') as 'allday' 
             -- ,COALESCE((SELECT GROUP_CONCAT(DISTINCT CONCAT(b.firstname,' ',b.lastname) SEPARATOR ', ') dentist_name from master_worktime a join master_user b on a.dentist_id = b.id WHERE day_id = w.day_id and shift = 'เย็น'),'') as 'evening' 
             FROM master_worktime w order by day_id";
             $result = $conn->query($sql);
@@ -56,9 +57,9 @@
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-nowrap">วัน</th>
-                            <th class="text-nowrap">กะเช้า (9:00-16:00)</th>
-                            <th class="text-nowrap">กะบ่าย ​(13:00-20:00)</th>
-                            <!-- <th class="text-nowrap">กะเย็น ​(16:00-20:00)</th> -->
+                            <th class="text-nowrap">ช่วงเวลาทำงานเช้า (09:00-16:00)</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงานบ่าย ​(13:00-20:00)</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงานทั้งวัน ​(09:00-20:00)</th>
                             <!-- <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th> -->
                         </tr>
@@ -87,6 +88,7 @@
                                         "<td>" . $row["dayname"] . "</td>" .
                                         "<td>" . $row["morning"] . "</td>" .
                                         "<td>" . $row["afternoon"] . "</td>" .
+                                        "<td>" . $row["allday"] . "</td>" .
                                         // "<td>" . $row["evening"] . "</td>";
                                         // "<td>" . "<a href=\"javascript:bindData('" . $row["id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
                                         // "<td>" . "<a href=\"javascript:deletecure('" . $row["id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
@@ -100,8 +102,9 @@
                     <tfoot>
                         <tr>
                             <th class="text-nowrap">วัน</th>
-                            <th class="text-nowrap">กะเช้า (9:00-16:00)</th>
-                            <th class="text-nowrap">กะบ่าย ​(13:00-20:00)</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงานเช้า (09:00-16:00)</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงานบ่าย ​(13:00-20:00)</th>
+                            <th class="text-nowrap">ช่วงเวลาทำงานทั้งวัน ​(09:00-20:00)</th>
                             <!-- <th class="text-nowrap">กะเย็น ​(16:00-20:00)</th> -->
                             <!-- <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th> -->

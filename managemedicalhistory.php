@@ -138,14 +138,14 @@
                             </div>
                         </div>
                         <div class="form-group col-6">
-                            <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
+                            <label>รหัส/ชื่อแพทย์ผู้รับผิดชอบ</label>
                             <select class="form-control a_dentist_name" name="a_dentist_name" style="width: 100%;">
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <label>รหัส/ชื่อ-นามสกุล ผู้ป่วย</label>
                             <select class="a_patient_name" name="a_patient_name" style="width: 100%;">
                             </select>
                         </div>
@@ -224,14 +224,14 @@
                             </div>
                         </div>
                         <div class="form-group col-6">
-                            <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
+                            <label>รหัส/ชื่อแพทย์ผู้รับผิดชอบ</label>
                             <select class="form-control e_dentist_name" name="e_dentist_name" style="width: 100%;">
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <label>รหัส/ชื่อ-นามสกุล ผู้ป่วย</label>
                             <select class="e_patient_name" name="e_patient_name" style="width: 100%;">
                             </select>
                         </div>
@@ -304,6 +304,21 @@
         $('.a_dentist_name').select2();
         $('.e_patient_name').select2();
         $('.e_dentist_name').select2();
+
+        $('.a_patient_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
+        });
+        $('.a_dentist_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาแพทย์');
+        });
+
+        $('.e_patient_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
+        });
+        $('.e_dentist_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาแพทย์');
+        });
+
         $('.a_patient_name').change(() => getDrugAllergy())
 
         $('.e_patient_name').change(() => getDrugAllergyEdit())
@@ -625,16 +640,13 @@
     function getFormData($form) {
         var unindexed_array = $form.serializeArray();
         var indexed_array = {};
-
         $.map(unindexed_array, function(n, i) {
             indexed_array[n['name']] = n['value'];
         });
-
         return indexed_array;
     }
 
     function editHistory() {
-
         // var data = getFormData($('#edituserform'));
         // var date = moment(data.u_birthdate, 'DD/MMM/YYYY').format('YYYY/MM/DD');
         // data.u_birthdate = date;

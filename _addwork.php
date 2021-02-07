@@ -11,12 +11,7 @@
         $day = $_POST['a_monday'];
         if(isset($_POST['a_monday_shift'])){
             $shift = $_POST['a_monday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('1','$day','เช้า','$dentist_id'),";
-                $sql_query.="('1','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('1','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('1','$day','$shift','$dentist_id'),";
             
         }
     }
@@ -24,72 +19,48 @@
         $day = $_POST['a_tuesday'];
         if(isset($_POST['a_tuesday_shift'])){
             $shift = $_POST['a_tuesday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('2','$day','เช้า','$dentist_id'),";
-                $sql_query.="('2','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('2','$day','$shift','$dentist_id'),";
-            }
+            // if($shift == 'ทั้งวัน'){ Example
+            //     $sql_query.="('2','$day','เช้า','$dentist_id'),";
+            //     $sql_query.="('2','$day','บ่าย','$dentist_id'),";
+            // }else{
+            //     $sql_query.="('2','$day','$shift','$dentist_id'),";
+            // }
+            $sql_query.="('2','$day','$shift','$dentist_id'),";
         }
     }
     if(isset($_POST['a_wednesday'])){
         $day = $_POST['a_wednesday'];
         if(isset($_POST['a_wednesday_shift'])){
             $shift = $_POST['a_wednesday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('3','$day','เช้า','$dentist_id'),";
-                $sql_query.="('3','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('3','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('3','$day','$shift','$dentist_id'),";
         }
     }
     if(isset($_POST['a_thursday'])){
         $day = $_POST['a_thursday'];
         if(isset($_POST['a_thursday_shift'])){
             $shift = $_POST['a_thursday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('4','$day','เช้า','$dentist_id'),";
-                $sql_query.="('4','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('4','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('4','$day','$shift','$dentist_id'),";
         }
     }
     if(isset($_POST['a_friday'])){
         $day = $_POST['a_friday'];
         if(isset($_POST['a_friday_shift'])){
             $shift = $_POST['a_friday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('5','$day','เช้า','$dentist_id'),";
-                $sql_query.="('5','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('5','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('5','$day','$shift','$dentist_id'),";
         }
     }
     if(isset($_POST['a_saturday'])){
         $day = $_POST['a_saturday'];
         if(isset($_POST['a_saturday_shift'])){
             $shift = $_POST['a_saturday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('6','$day','เช้า','$dentist_id'),";
-                $sql_query.="('6','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('6','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('6','$day','$shift','$dentist_id'),";
         }
     }
     if(isset($_POST['a_sunday'])){
         $day = $_POST['a_sunday'];
         if(isset($_POST['a_sunday_shift'])){
             $shift = $_POST['a_sunday_shift'];
-            if($shift == 'ทั้งวัน'){
-                $sql_query.="('7','$day','เช้า','$dentist_id'),";
-                $sql_query.="('7','$day','บ่าย','$dentist_id'),";
-            }else{
-                $sql_query.="('7','$day','$shift','$dentist_id'),";
-            }
+            $sql_query.="('7','$day','$shift','$dentist_id'),";
         }
     }
     // if($day_id == 1){

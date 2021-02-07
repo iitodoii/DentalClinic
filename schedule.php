@@ -102,7 +102,7 @@
                     <!-- disabled -->
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <label>รหัส/ชื่อ-นามสกุล ผู้ป่วย</label>
                             <select class="form-control a_patient_name" name="a_patient_name" style="width: 100%;">
                             </select>
                         </div>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
+                        <label>รหัส/ชื่อแพทย์ผู้รับผิดชอบ</label>
                         <select class="form-control a_dentist_name" name="a_dentist_name" style="width: 100%;">
                         </select>
                     </div>
@@ -213,7 +213,7 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col-6">
-                            <label>ชื่อ-นามสกุล ผู้ป่วย</label>
+                            <label>รหัส/ชื่อ-นามสกุล ผู้ป่วย</label>
                             <select class="form-control e_patient_name" name="e_patient_name" style="width: 100%;">
                             </select>
                         </div>
@@ -264,7 +264,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>ชื่อแพทย์ผู้รับผิดชอบ</label>
+                        <label>รหัส/ชื่อแพทย์ผู้รับผิดชอบ</label>
                         <select class="form-control e_dentist_name" name="e_dentist_name" style="width: 100%;">
                         </select>
                     </div>
@@ -324,15 +324,12 @@
             change: function(time) {
                 $('input.a_timepicker_end').val(moment.utc($('input.a_timepicker_start').val(), 'hh:mm').add(curetime, 'minutes').format('HH:mm'));
                 //$('input.a_timepicker_end').timepicker('setTime', moment.utc($('input.a_timepicker_start').val(),'hh:mm').add(curetime,'minutes').format('HH:mm'));
-
                 var param = {
                     assign_date: moment($('#a_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),
                     start_time: $('input.a_timepicker_start').val(),
                     end_time: $('input.a_timepicker_end').val()
                 };
-
                 getDentist(param);
-
             }
         });
 
@@ -398,7 +395,11 @@
         })
         $('.a_patient_name').change(() => getPhone())
         $('.e_patient_name').change(() => getPhoneEditMode())
-        $('.a_title').change(() => getCureTime())
+        $('.a_title').change(() => {
+            getCureTime()
+            $('.a_timepicker_start').val("");
+            $('.a_timepicker_end').val("");
+        });
         $('.e_title').change(() => {
             getCureTimeEditMode().then(() => {
                 $('input.e_timepicker_end').val(moment.utc($('input.e_timepicker_start').val(), 'hh:mm').add(curetime, 'minutes').format('HH:mm'));
@@ -506,38 +507,89 @@
     });
 
     function add_event() {
-        // let start =  $('.a_timepicker_start').val();
-        // let end = $('.a_timepicker_end').val();
-        // console.log(alldata);
-        // if(start >= alldata.event_start)
-        // moment(alldata[0].event_start) <= moment(alldata[0].event_end)
-        var form_data = new FormData($('#add_event_form')[0]);
-        $.ajax({
-            type: 'POST',
-            url: '_addevent.php',
-            data: form_data,
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.status >= 0) {
-                    swal("เรียบร้อย เพิ่มข้อมูลเสร็จสิ้น!", {
-                        icon: "success"
-                    }).then((e) => {
-                        $('#modal-add-event').modal('hide');
-                        genCalendarData();
-                        // window.location.href = "managepatient.php"
-                    });
-                } else {
-                    swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
+        let start = $('.a_timepicker_start').val();
+        let end = $('.a_timepicker_end').val();
+        let flag_other_day = true;
+        $.each(alldata, function(i, val) {
+            if (moment(val.event_start).format('DD/MM/YYYY') == moment($('.a_date').val()).format('DD/MM/YYYY')) {
+                let val_start = moment(val.event_start).format('HH:mm');
+                let val_end = moment(val.event_end).format('HH:mm');
+                if ((start >= val_start && start <= val_end ||
+                        end >= val_start && end <= val_end) &&
+                    val.user_id == $('.a_dentist_name').val())
+                // ||
+                // (val_start >= start && val_end <= start &&
+                // val_start >= end &&  val_end <= end))
+                {
+                    swal("ไม่สามารถเลือกเวลาซ้ำกันได้ !", {
                         icon: "error",
                     });
+                } else {
+                    flag_other_day = false;
+                    var form_data = new FormData($('#add_event_form')[0]);
+                    $.ajax({
+                        type: 'POST',
+                        url: '_addevent.php',
+                        data: form_data,
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.status >= 0) {
+                                swal("เรียบร้อย เพิ่มข้อมูลเสร็จสิ้น!", {
+                                    icon: "success"
+                                }).then((e) => {
+                                    $('#modal-add-event').modal('hide');
+                                    genCalendarData();
+                                    // window.location.href = "managepatient.php"
+                                });
+                                return false;
+                            } else {
+                                swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
+                                    icon: "error",
+                                });
+                                return false;
+                            }
+                        },
+                        error: function(e) {
+                            swal('error');
+                        }
+                    });
+                    return false;
                 }
-            },
-            error: function(e) {
-                swal('error');
             }
         });
+        if (alldata.length == 0) {
+            var form_data = new FormData($('#add_event_form')[0]);
+            $.ajax({
+                type: 'POST',
+                url: '_addevent.php',
+                data: form_data,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status >= 0) {
+                        swal("เรียบร้อย เพิ่มข้อมูลเสร็จสิ้น!", {
+                            icon: "success"
+                        }).then((e) => {
+                            $('#modal-add-event').modal('hide');
+                            genCalendarData();
+                            // window.location.href = "managepatient.php"
+                        });
+                    } else {
+                        swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
+                            icon: "error",
+                        });
+                    }
+                },
+                error: function(e) {
+                    swal('error');
+                }
+            });
+        }
+
+
     }
 
     function edit_event() {
@@ -731,10 +783,22 @@
             'themeSystem': 'bootstrap',
             //Random default events
             events: event_data,
-            eventTimeFormat: { 
+            eventLimit: true,
+            views: {
+                agenda: {
+                    eventLimit: 3
+                },
+                timeGrid: {
+                    eventLimit: 3
+                },
+                dayGridMonth: {
+                    eventLimit: 3
+                },
+            },
+            eventTimeFormat: {
                 hour: '2-digit',
                 minute: '2-digit',
-                hour12:false
+                hour12: false
             },
             droppable: false, // this allows things to be dropped onto the calendar !!!
             drop: function(info) {
@@ -773,6 +837,8 @@
                     //initColorPicker();
                     getDentist();
                     $('#a_date').datetimepicker('date', moment(date.start).format('DD/MMM/YYYY'));
+                    $('.a_timepicker_start').val("");
+                    $('.a_timepicker_end').val("");
                     $('#modal-add-event').modal('show');
                 } else {
                     swal("เลือกไม่ได้", "ท่านไม่สามารถนัดหมายวันที่ผ่านมาแล้วได้!", "warning");
@@ -797,7 +863,17 @@
                         // $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
                         $('#e_patient_name').val(val.detaildata.patient_name);
                         $('#e_tel').val(val.detaildata.patient_phone);
-                        $('#e_dentist').val(val.detaildata.dentist_name);
+
+                        var param = {
+                            assign_date: moment($('#e_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),
+                            start_time: $('input.e_timepicker_start').val(),
+                            end_time: $('input.e_timepicker_end').val()
+                        };
+
+                        getDentist(param).then(() => {
+                            $('.e_dentist_name').val(val.detaildata.user_id).trigger('change');
+                        });
+
                     }
                 });
                 // calEvent.title = title;
@@ -839,6 +915,22 @@
         $('.a_dentist_name').select2();
         $('.e_patient_name').select2();
         $('.e_dentist_name').select2();
+
+
+        $('.a_patient_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
+        });
+        $('.a_dentist_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาแพทย์');
+        });
+
+        $('.e_patient_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
+        });
+        $('.e_dentist_name').one('select2:open', function(e) {
+            $('input.select2-search__field').prop('placeholder', 'ค้นหาแพทย์');
+        });
+
         var date = new Date();
         $('#e_date').datetimepicker({
             "singleDatePicker": true,
@@ -1032,7 +1124,7 @@
     }
 
     function getDentist(data) {
-        $.ajax({
+        return $.ajax({
             type: 'post',
             url: '_getDentist.php',
             data: data,
