@@ -70,6 +70,9 @@
     .select2-selection {
         height: calc(2.25rem + 2px) !important;
     }
+    .select2-selection__clear{
+        display: none;
+    }
 </style>
 
 <?php include 'connector.php';
@@ -231,6 +234,14 @@ $obj = mysqli_fetch_object($result)
                                         <a href='./managecure.php' class='nav-link'>
                                             <i class='far fa-circle nav-icon'></i>
                                             <p>จัดการรายการรักษา</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class='nav nav-treeview'>
+                                    <li class='nav-item'>
+                                        <a href='./managedrug.php' class='nav-link'>
+                                            <i class='far fa-circle nav-icon'></i>
+                                            <p>จัดการรายการยา</p>
                                         </a>
                                     </li>
                                 </ul>

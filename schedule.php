@@ -307,16 +307,21 @@
             display : none !important;
         } */
     }
+
+    .select2-selection__clear{
+        display: none;
+    }
 </style>
 
 <script>
     var curetime;
     var alldata = [];
     $(document).ready(function() {
+        $('.select2-selection__clear').hide();
         initialData();
         genCalendarData();
         $('input.a_timepicker_start').timepicker({
-            timeFormat: 'H:mm',
+            timeFormat: 'HH:mm',
             minTime: '9',
             maxTime: '20',
             defaultDate: '9:00',
@@ -334,7 +339,7 @@
         });
 
         $('input.e_timepicker_start').timepicker({
-            timeFormat: 'H:mm',
+            timeFormat: 'HH:mm',
             minTime: '9',
             maxTime: '20',
             defaultDate: '9:00',
@@ -425,9 +430,6 @@
                 a_start: {
                     required: true
                 },
-                a_end: {
-                    required: true
-                },
                 a_patient_name: {
                     required: true
                 },
@@ -443,28 +445,19 @@
             },
             messages: {
                 a_title: {
-                    required: "Select title"
+                    required: "กรุณาเลือกรายการรักษา"
                 },
                 a_date: {
-                    required: "Select date"
+                    required: "กรุณาเลือกวันที่รับรักษา"
                 },
                 a_start: {
-                    required: "Select start time"
-                },
-                a_end: {
-                    required: "Select end time"
+                    required: "กรุณากรอกเวลาเริ่มรักษา"
                 },
                 a_patient_name: {
-                    required: "Select patient"
+                    required: "กรุณาเลือกผู้ป่วยที่เข้ารับการรักษา"
                 },
                 a_dentist_name: {
-                    required: "Select dentist"
-                },
-                a_backgroundColor: {
-                    required: "Select background color"
-                },
-                a_borderColor: {
-                    required: "Select border color"
+                    required: "กรุณาเลือกแพทย์ที่รับผิดชอบ"
                 }
             },
             errorElement: 'span',
@@ -482,14 +475,38 @@
 
         $('#edit_event_form').validate({
             rules: {
+                e_title: {
+                    required: true
+                },
+                e_date: {
+                    required: true
+                },
                 e_start: {
                     required: true
-                }
+                },
+                e_patient_name: {
+                    required: true
+                },
+                e_dentist_name: {
+                    required: true
+                },
             },
             messages: {
+                e_title: {
+                    required: "กรุณาเลือกรายการรักษา"
+                },
+                e_date: {
+                    required: "กรุณาเลือกวันที่รับรักษา"
+                },
                 e_start: {
-                    required: "Please enter a start time",
-                }
+                    required: "กรุณาเลือกวันที่รับรักษา",
+                },
+                e_patient_name: {
+                    required: "กรุณาเลือกผู้ป่วยที่เข้ารับการรักษา"
+                },
+                e_dentist_name: {
+                    required: "กรุณาเลือกแพทย์ที่รับผิดชอบ"
+                },
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
@@ -510,6 +527,7 @@
         let start = $('.a_timepicker_start').val();
         let end = $('.a_timepicker_end').val();
         let flag_other_day = true;
+        let flag_can_insert = true;
         $.each(alldata, function(i, val) {
             if (moment(val.event_start).format('DD/MM/YYYY') == moment($('.a_date').val()).format('DD/MM/YYYY')) {
                 let val_start = moment(val.event_start).format('HH:mm');
@@ -521,45 +539,13 @@
                 // (val_start >= start && val_end <= start &&
                 // val_start >= end &&  val_end <= end))
                 {
-                    swal("ไม่สามารถเลือกเวลาซ้ำกันได้ !", {
-                        icon: "error",
-                    });
-                } else {
-                    flag_other_day = false;
-                    var form_data = new FormData($('#add_event_form')[0]);
-                    $.ajax({
-                        type: 'POST',
-                        url: '_addevent.php',
-                        data: form_data,
-                        dataType: 'json',
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            if (response.status >= 0) {
-                                swal("เรียบร้อย เพิ่มข้อมูลเสร็จสิ้น!", {
-                                    icon: "success"
-                                }).then((e) => {
-                                    $('#modal-add-event').modal('hide');
-                                    genCalendarData();
-                                    // window.location.href = "managepatient.php"
-                                });
-                                return false;
-                            } else {
-                                swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
-                                    icon: "error",
-                                });
-                                return false;
-                            }
-                        },
-                        error: function(e) {
-                            swal('error');
-                        }
-                    });
+                    flag_can_insert = false;
                     return false;
+                } else {
                 }
             }
         });
-        if (alldata.length == 0) {
+        if (alldata.length == 0 || flag_can_insert) {
             var form_data = new FormData($('#add_event_form')[0]);
             $.ajax({
                 type: 'POST',
@@ -577,15 +563,21 @@
                             genCalendarData();
                             // window.location.href = "managepatient.php"
                         });
+                        return false;
                     } else {
                         swal("เกิดข้อผิดพลาด ที่ฟังค์ชั่น!", {
                             icon: "error",
                         });
+                        return false;
                     }
                 },
                 error: function(e) {
                     swal('error');
                 }
+            });
+        } else {
+            swal("ไม่สามารถเลือกเวลาซ้ำกันได้ !", {
+                icon: "error",
             });
         }
 
@@ -861,7 +853,8 @@
                         $('input.e_timepicker_start').val(moment(val.detaildata.event_start).format('H:mm'));
                         $('input.e_timepicker_end').val(moment(val.detaildata.event_end).format('H:mm'));
                         // $('#e_end').datetimepicker('date', moment(val.detaildata.event_end).format('h:mm a'));
-                        $('#e_patient_name').val(val.detaildata.patient_name);
+                        //$('#e_patient_name').val(val.detaildata.patient_name);
+                        $('.e_patient_name').val(val.detaildata.patient_id).trigger('change');
                         $('#e_tel').val(val.detaildata.patient_phone);
 
                         var param = {
@@ -872,8 +865,9 @@
 
                         getDentist(param).then(() => {
                             $('.e_dentist_name').val(val.detaildata.user_id).trigger('change');
+                            $('.select2-selection__clear').hide();
                         });
-
+                        
                     }
                 });
                 // calEvent.title = title;
@@ -911,13 +905,25 @@
         getCure().then(() => {
             getCureTime()
         });
-        $('.a_patient_name').select2();
-        $('.a_dentist_name').select2();
-        $('.e_patient_name').select2();
-        $('.e_dentist_name').select2();
+        $('.a_patient_name').select2({
+            placeholder: "ค้นหาผู้ป่วย",
+            allowClear: true
+        });
+        $('.a_dentist_name').select2({
+            placeholder: "ค้นหาแพทย์",
+            allowClear: true
+        });
+        $('.e_patient_name').select2({
+            placeholder: "ค้นหาผู้ป่วย",
+            allowClear: true
+        });
+        $('.e_dentist_name').select2({
+            placeholder: "ค้นหาแพทย์",
+            allowClear: true
+        });
 
 
-        $('.a_patient_name').one('select2:open', function(e) {
+        $('.a_patient_name').one('select2:open', function(e) { 
             $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
         });
         $('.a_dentist_name').one('select2:open', function(e) {
@@ -1105,6 +1111,8 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
+                    $('.a_patient_name').append('<option></option>');
+                    $('.e_patient_name').append('<option></option>');
                     $.each(response.data, function(i, val) {
                         $('.a_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                         $('.e_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
@@ -1133,6 +1141,8 @@
                 if (response.status) {
                     $('.a_dentist_name').empty();
                     $('.e_dentist_name').empty();
+                    $('.a_dentist_name').append('<option></option>');
+                    $('.e_dentist_name').append('<option></option>');
                     $.each(response.data, function(i, val) {
                         $('.a_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                         $('.e_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
@@ -1161,7 +1171,8 @@
             },
             success: function(response) {
                 if (response.status) {
-                    $('#a_tel').val(response.data[0].phone)
+                    if(response.data.length != 0)
+                        $('#a_tel').val(response.data[0].phone)
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
                         icon: "error",

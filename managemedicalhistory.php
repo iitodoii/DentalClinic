@@ -27,10 +27,12 @@
             <!-- /.card-header -->
             <?php $sql = "SELECT MH.*,CONCAT(MP.firstname,' ',MP.lastname) as patient_name,MP.drug_allergy,
                 CONCAT(MU.firstname,' ',MU.lastname) dentist_name,
-                MC.cure_name,MC.cure_piece,MH.cure_count,MH.net_total
+                MC.cure_name,MC.cure_piece,MH.cure_count,MH.net_total,MD.drug_name,MD.drug_price
+
                 FROM `master_medical_history` MH JOIN master_patient MP on MH.patient_id = MP.patient_id 
                 JOIN master_user MU on MH.user_id = MU.id
-                JOIN master_cure MC on MH.cure_id = MC.id";
+                JOIN master_cure MC on MH.cure_id = MC.id
+                JOIN master_drug MD on MH.drug_id = MD.id";
             $result = $conn->query($sql);
             $myJson2 = json_encode($result);
 
@@ -45,15 +47,21 @@
                             <th class="text-nowrap">รหัสประวัติการรักษา</th>
                             <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อผู้ป่วย</th>
-                            <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ฟันที่ได้รับการรักษา</th>
+                            
+                            <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ราคาการรักษา</th>
                             <th class="text-nowrap">จำนวนที่รับรักษา</th>
+
+                            <th class="text-nowrap">ยาที่ได้รับ</th>
+                            <th class="text-nowrap">จำนวนยา</th>
+                            <th class="text-nowrap">ราคายา</th>
+
                             <th class="text-nowrap">ราคาสุทธิ</th>
+
                             <th class="text-nowrap">วันที่รับการรักษา</th>
                             <th class="text-nowrap">แพทย์ที่รับผิดชอบ</th>
                             <th class="text-nowrap">ประวัติแพ้ยา</th>
-                            <th class="text-nowrap">ยาที่ได้รับ</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
                         </tr>
@@ -68,15 +76,17 @@
                                     "<td>" . $row["id"] . "</td>" .
                                     "<td>" . $row["patient_id"] . "</td>" .
                                     "<td>" . $row["patient_name"] . "</td>" .
-                                    "<td>" . $row["cure_name"] . "</td>" .
                                     "<td>" . $row["teeth"] . "</td>" .
+                                    "<td>" . $row["cure_name"] . "</td>" .
                                     "<td>" . $row["cure_piece"] . "</td>" .
                                     "<td>" . $row["cure_count"] . "</td>" .
+                                    "<td>" . $row["drug_name"] . "</td>" .
+                                    "<td>" . $row["drug_count"] . "</td>" .
+                                    "<td>" . $row["drug_price"] . "</td>" .
                                     "<td>" . $row["net_total"] . "</td>" .
                                     "<td>" . $row["date"] . "</td>" .
                                     "<td>" . $row["dentist_name"] . "</td>" .
                                     "<td>" . $row["drug_allergy"] . "</td>" .
-                                    "<td>" . $row["medicine"] . "</td>" .
                                     "<td>" . "<a href=\"javascript:bindData('" . $row["id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
                                     "<td>" . "<a href=\"javascript:deleteHistory('" . $row["id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
                                     "</tr>";
@@ -88,18 +98,24 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th class="text-nowrap">รหัสประวัติการรักษา</th>
+                        <th class="text-nowrap">รหัสประวัติการรักษา</th>
                             <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อผู้ป่วย</th>
-                            <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ฟันที่ได้รับการรักษา</th>
+                            
+                            <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ราคาการรักษา</th>
                             <th class="text-nowrap">จำนวนที่รับรักษา</th>
+
+                            <th class="text-nowrap">ยาที่ได้รับ</th>
+                            <th class="text-nowrap">จำนวนยา</th>
+                            <th class="text-nowrap">ราคายา</th>
+
                             <th class="text-nowrap">ราคาสุทธิ</th>
+
                             <th class="text-nowrap">วันที่รับการรักษา</th>
                             <th class="text-nowrap">แพทย์ที่รับผิดชอบ</th>
                             <th class="text-nowrap">ประวัติแพ้ยา</th>
-                            <th class="text-nowrap">ยาที่ได้รับ</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
                         </tr>
@@ -151,27 +167,53 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="a_drug_allergy">ประวัติแพ้ยา </label>
-                            <input type="text" name="a_drug_allergy" class="form-control" id="a_drug_allergy" placeholder="drug allergy" disabled>
+                            <input type="text" name="a_drug_allergy" class="form-control" id="a_drug_allergy" placeholder="ประวัติการแพ้ยา" disabled>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-3">
                             <label>รายการรักษา</label>
                             <select class="form-control a_cure" name="a_cure" style="width: 100%;">
                             </select>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-3">
                             <label for="a_cure_piece">ราคา </label>
-                            <input type="text" name="a_cure_piece" class="form-control" id="a_cure_piece" placeholder="a_cure_piece" disabled>
+                            <input type="text" name="a_cure_piece" class="form-control" id="a_cure_piece" placeholder="ราคา" disabled>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-3">
                             <label for="inputCount">จำนวน</label>
                             <input type="number" name="a_cure_count" class="form-control" id="a_cure_count" placeholder="จำนวนที่รับรักษา" step="1">
                         </div>
-                        <div class="form-group col-6">
-                            <label for="a_net_total">ราคาสุทธิ</label>
+                        <div class="form-group col-3">
+                            <label for="a_cure_total">ราคาการรักษาสุทธิ</label>
+                            <input type="text" name="a_cure_total" class="form-control" id="a_cure_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-3">
+                            <label>รายการยา</label>
+                            <select class="form-control a_drug" name="a_drug" style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="a_drug_piece">ราคา </label>
+                            <input type="text" name="a_drug_piece" class="form-control" id="a_drug_piece" placeholder="ราคา" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="a_drug_count">จำนวน</label>
+                            <input type="number" name="a_drug_count" class="form-control" id="a_drug_count" placeholder="จำนวนที่รับรักษา" step="1">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="a_drug_total">ราคายาสุทธิ</label>
+                            <input type="text" name="a_drug_total" class="form-control" id="a_drug_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-9">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="a_net_total">ราคารวมสุทธิ</label>
                             <input type="text" name="a_net_total" class="form-control" id="a_net_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
                         </div>
                     </div>
@@ -181,8 +223,8 @@
                             <textarea type="text" name="a_teeth" class="form-control" rows="3" id="a_teeth" placeholder="ฟันซี่ที่รับรักษา ..."></textarea>
                         </div>
                         <div class="form-group col-6">
-                            <label for="a_medicine">ยาที่ใช้ในการรักษา</label>
-                            <textarea type="text" name="a_medicine" class="form-control" rows="3" id="a_medicine" placeholder="ชื่อยาที่ใช้ในการรักษา ..."></textarea>
+                            <label for="a_note">หมายเหตุ</label>
+                            <textarea type="text" name="a_note" class="form-control" rows="3" id="a_note" placeholder="หมายเหตุ ..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -237,7 +279,7 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="e_drug_allergy">ประวัติแพ้ยา </label>
-                            <input type="text" name="e_drug_allergy" class="form-control" id="e_drug_allergy" placeholder="drug allergy" disabled>
+                            <input type="text" name="e_drug_allergy" class="form-control" id="e_drug_allergy" placeholder="ประวัติการแพ้ยา" disabled>
                         </div>
                     </div>
                     <div class="form-row">
@@ -257,8 +299,35 @@
                             <input type="number" name="e_cure_count" class="form-control" id="e_cure_count" placeholder="จำนวนที่รับรักษา" step="1">
                         </div>
                         <div class="form-group col-6">
-                            <label for="e_net_total">ราคาสุทธิ</label>
-                            <input type="text" name="e_net_total" class="form-control" id="e_net_total" readonly='true'>
+                            <label for="e_cure_total">ราคาสุทธิ</label>
+                            <input type="text" name="e_cure_total" class="form-control" id="e_cure_total" readonly='true'>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-3">
+                            <label>รายการยา</label>
+                            <select class="form-control e_drug" name="e_drug" style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="e_drug_piece">ราคา </label>
+                            <input type="text" name="e_drug_piece" class="form-control" id="e_drug_piece" placeholder="ราคา" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="e_drug_count">จำนวน</label>
+                            <input type="number" name="e_drug_count" class="form-control" id="e_drug_count" placeholder="จำนวนที่รับรักษา" step="1">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="e_drug_total">ราคายาสุทธิ</label>
+                            <input type="text" name="e_drug_total" class="form-control" id="e_drug_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-9">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="e_net_total">ราคารวมสุทธิ</label>
+                            <input type="text" name="e_net_total" class="form-control" id="e_net_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
                         </div>
                     </div>
                     <div class="form-row">
@@ -267,8 +336,8 @@
                             <textarea type="text" name="e_teeth" class="form-control" rows="3" id="e_teeth" placeholder="ฟันซี่ที่รับรักษา ..."></textarea>
                         </div>
                         <div class="form-group col-6">
-                            <label for="e_medicine">ยาที่ใช้ในการรักษา</label>
-                            <textarea type="text" name="e_medicine" class="form-control" rows="3" id="e_medicine" placeholder="ชื่อยาที่ใช้ในการรักษา ..."></textarea>
+                            <label for="e_note">หมายเหตุ</label>
+                            <textarea type="text" name="e_note" class="form-control" rows="3" id="e_note" placeholder="หมายเหตุ ..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -300,10 +369,32 @@
             getCurePieceEdit();
         });
 
+        getDrug().then(() => {
+            getDrugPiece();
+            getDrugPieceEdit();
+        });
+
         $('.a_patient_name').select2();
         $('.a_dentist_name').select2();
         $('.e_patient_name').select2();
         $('.e_dentist_name').select2();
+
+        $('.a_patient_name').select2({
+            placeholder: "ค้นหาผู้ป่วย",
+            allowClear: true
+        });
+        $('.a_dentist_name').select2({
+            placeholder: "ค้นหาแพทย์",
+            allowClear: true
+        });
+        $('.e_patient_name').select2({
+            placeholder: "ค้นหาผู้ป่วย",
+            allowClear: true
+        });
+        $('.e_dentist_name').select2({
+            placeholder: "ค้นหาแพทย์",
+            allowClear: true
+        });
 
         $('.a_patient_name').one('select2:open', function(e) {
             $('input.select2-search__field').prop('placeholder', 'ค้นหาผู้ป่วย');
@@ -323,18 +414,82 @@
 
         $('.e_patient_name').change(() => getDrugAllergyEdit())
 
+
+
         $('.a_cure').change(() => getCurePiece().then(() => {
-            $('#a_net_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
+            $('#a_cure_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
         }))
         $('#a_cure_count').change(() => {
-            $('#a_net_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
+            $('#a_cure_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
         })
 
         $('.e_cure').change(() => getCurePieceEdit().then(() => {
-            $('#e_net_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
+            $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
         }))
         $('#e_cure_count').change(() => {
-            $('#e_net_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
+            $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
+        })
+
+        $('.a_drug').change(() => getDrugPiece().then(() => {
+            $('#a_drug_total').val($('#a_drug_count').val() * $('#a_drug_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
+        }))
+        $('#a_drug_count').change(() => {
+            $('#a_drug_total').val($('#a_drug_count').val() * $('#a_drug_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
+        })
+
+        $('.e_drug').change(() => getDrugPieceEdit().then(() => {
+            $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
+        }))
+        $('#a_drug_count').change(() => {
+            $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
+            let a = parseFloat($('#a_cure_total').val());
+            let b = parseFloat($('#a_drug_total').val());
+            $('#a_net_total').val(a+b);
+            if(isNaN($('#a_net_total').val())){
+                $('#a_net_total').val(0);
+            }
         })
 
         var date = new Date();
@@ -406,7 +561,7 @@
 
             },
             messages: {
-                
+
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
@@ -434,6 +589,8 @@
                 if (response.status) {
                     $('.a_dentist_name').empty();
                     $('.e_dentist_name').empty();
+                    $('.a_dentist_name').append('<option></option>');
+                    $('.e_dentist_name').append('<option></option>');
                     $.each(response.data, function(i, val) {
                         $('.a_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                         $('.e_dentist_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
@@ -459,6 +616,8 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
+                    $('.a_patient_name').append('<option></option>');
+                    $('.e_patient_name').append('<option></option>');
                     $.each(response.data, function(i, val) {
                         $('.a_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
                         $('.e_patient_name').append('<option value="' + val.id + '">' + val.id + ' : ' + val.text + '</option>')
@@ -488,7 +647,8 @@
             },
             success: function(response) {
                 if (response.status) {
-                    $('#a_drug_allergy').val(response.data[0].drug_allergy)
+                    if (response.data.length != 0)
+                        $('#a_drug_allergy').val(response.data[0].drug_allergy)
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
                         icon: "error",
@@ -513,7 +673,8 @@
             },
             success: function(response) {
                 if (response.status) {
-                    $('#e_drug_allergy').val(response.data[0].drug_allergy)
+                    if (response.data.length != 0)
+                        $('#e_drug_allergy').val(response.data[0].drug_allergy)
                 } else {
                     swal("เกิดข้อผิดพลาด!", {
                         icon: "error",
@@ -534,7 +695,7 @@
             type: 'post',
             url: '_getCure.php',
             data: {
-                id: $('.a_ti').val()
+                id: id
             },
             dataType: 'json',
             success: function(response) {
@@ -542,6 +703,35 @@
                     $.each(response.data, function(i, val) {
                         $('.a_cure').append('<option value="' + val.id + '">' + val.text + '</option>')
                         $('.e_cure').append('<option value="' + val.id + '">' + val.text + '</option>')
+                    });
+                } else {
+                    swal("เกิดข้อผิดพลาด :" + response.errmsg, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function getDrug() {
+        var id = $('.a_drug').val();
+        return $.ajax({
+            type: 'post',
+            url: '_getDrug.php',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    $.each(response.data, function(i, val) {
+                        $('.a_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
+                        $('.e_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
                     });
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -568,7 +758,35 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    $('#a_cure_piece').val(response.data[0].cure_piece)
+                    if(response.data.length != 0)
+                        $('#a_cure_piece').val(response.data[0].cure_piece)
+                } else {
+                    swal("เกิดข้อผิดพลาด :" + response.errmsg, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    function getDrugPiece() {
+        var id = $('.a_drug').val();
+        return $.ajax({
+            type: 'post',
+            url: '_getDrug.php',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    if(response.data.length != 0)
+                        $('#a_drug_piece').val(response.data[0].drug_price)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
                         icon: "error",
@@ -594,7 +812,8 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    $('#e_cure_piece').val(response.data[0].cure_piece)
+                    if(response.data.length != 0)
+                        $('#e_cure_piece').val(response.data[0].cure_piece)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
                         icon: "error",
@@ -608,7 +827,32 @@
             }
         });
     }
-
+    function getDrugPieceEdit() {
+        var id = $('.e_drug').val();
+        return $.ajax({
+            type: 'post',
+            url: '_getDrug.php',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status) {
+                    if(response.data.length !=0 )
+                        $('#e_drug_piece').val(response.data[0].drug_price)
+                } else {
+                    swal("เกิดข้อผิดพลาด :" + response.errmsg, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function(e) {
+                swal("เกิดข้อผิดพลาด!", {
+                    icon: "error",
+                });
+            }
+        });
+    }
 
     function addhistory() {
         var form_data = new FormData($('#addhistoryform')[0]);
@@ -725,8 +969,10 @@
             if (val.id == id) {
                 $('#e_id').val(val.id);
                 $('#e_date').datetimepicker('date', moment(val.date));
-                $('#e_dentist_name').val(val.user_id);
-                $('#e_patient_name').val(val.patient_id);
+                //$('#e_dentist_name').val(val.user_id);
+                $('.e_dentist_name').val(val.user_id).trigger('change');
+                //$('#e_patient_name').val(val.patient_id);
+                $('.e_patient_name').val(val.patient_id).trigger('change');
                 $('#e_drug_allergy').val(val.drug_allergy);
                 $('#e_cure').val(val.cure_id);
                 $('#e_cure_piece').val(val.cure_piece);
