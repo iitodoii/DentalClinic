@@ -729,6 +729,8 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
+                    $('.a_drug').append('<option value="0">ไม่มี</option>');
+                    $('.e_drug').append('<option value="0">ไม่มี</option>');
                     $.each(response.data, function(i, val) {
                         $('.a_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
                         $('.e_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
