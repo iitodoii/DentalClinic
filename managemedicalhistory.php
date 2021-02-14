@@ -296,7 +296,7 @@
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label for="e_cure_count">จำนวน</label>
-                            <input type="number" name="e_cure_count" class="form-control" id="e_cure_count" placeholder="จำนวนที่รับรักษา" step="1">
+                            <input type="number" name="e_cure_count" class="form-control" id="e_cure_count" placeholder="จำนวนที่รับรักษา" step="1" min="0">
                         </div>
                         <div class="form-group col-6">
                             <label for="e_cure_total">ราคาสุทธิ</label>
@@ -315,7 +315,7 @@
                         </div>
                         <div class="form-group col-3">
                             <label for="e_drug_count">จำนวน</label>
-                            <input type="number" name="e_drug_count" class="form-control" id="e_drug_count" placeholder="จำนวนที่รับรักษา" step="1">
+                            <input type="number" name="e_drug_count" class="form-control" id="e_drug_count" placeholder="จำนวนที่รับรักษา" step="1" min="0">
                         </div>
                         <div class="form-group col-3">
                             <label for="e_drug_total">ราคายาสุทธิ</label>
