@@ -58,6 +58,7 @@
                             <th class="text-nowrap">ประวัติการแพ้ยา</th>
                             <th class="text-nowrap">แก้ไข</th>
                             <th class="text-nowrap">ลบ</th>
+                            <th class="text-nowrap">พิมพ์บัตร</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +83,7 @@
                                     "<td>" . $row["drug_allergy"] . "</td>" .
                                     "<td>" . "<a href=\"javascript:bindData('" . $row["patient_id"] . "')\" > <i class='fas fa-user-edit'></i> </a> " . "</td>" .
                                     "<td>" . "<a href=\"javascript:deleteUser('" . $row["patient_id"] . "')\" class='text-danger' > <i class='fas fa-user-minus'></i> </a> " . "</td>" .
+                                    "<td>" . "<a href=\"printpentient.php?id=". $row["patient_id"] . "\" class='text-dark' > <i class='fas fa-print'></i> </a> " . "</td>" .
                                     "</tr>";
                             }
                         } else {
@@ -100,7 +102,7 @@
                             <th class="text-nowrap">เบอร์โทร</th>
                             <th class="text-nowrap">ประวัติการแพ้ยา</th>
                             <th class="text-nowrap">แก้ไข</th>
-                            <th class="text-nowrap">ลบ</th>
+                            <th class="text-nowrap">พิมพ์บัตร</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -272,6 +272,7 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
                     <div class="d-flex justify-content-center">
+                        <a href="" id="printevent" class='btn btn-dark mr-4' > <i class='fas fa-print'></i>พิมพ์ใบนัด</a>
                         <a href="javascript:confirm_event()" class='btn btn-success mr-4'> ยืนยันการทำรายการ </a>
                         <a href="javascript:delete_event()" class='btn btn-danger'> ยกเลิกนัด </a>
                     </div>
@@ -856,6 +857,7 @@
                         //$('#e_patient_name').val(val.detaildata.patient_name);
                         $('.e_patient_name').val(val.detaildata.patient_id).trigger('change');
                         $('#e_tel').val(val.detaildata.patient_phone);
+                        $('#printevent').attr("href", "printevent.php?id="+val.detaildata.id);
 
                         var param = {
                             assign_date: moment($('#e_date').datetimepicker('date')._d).format('DD/MMM/YYYY'),

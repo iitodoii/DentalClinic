@@ -1,0 +1,60 @@
+@page {
+    size: a5;
+    margin: 0mm;
+    /* margin: 1in; */
+}
+
+/* @media print{
+    body * {
+        visibility: hidden;
+    }
+    .print{
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        top:0;
+    }
+} */
+
+@media print {
+
+    /* html,
+    body {
+        width: 200;
+        height: 100;
+    } */
+    .disprint{
+        display: none
+    }
+    #printCard {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: 600px;
+        min-height: 100px;
+        box-shadow: initial;
+        background: initial;
+        /* page-break-after: always; */
+    }
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+p {
+    margin: 8;
+}
+
+.badgescard,
+.firstinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* *,
+*:before,
+*:after {
+    box-sizing: border-box;
+} */
