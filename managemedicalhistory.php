@@ -283,26 +283,25 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-3">
                             <label>รายการรักษา</label>
                             <select class="form-control e_cure" name="e_cure" style="width: 100%;">
                             </select>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="a_cure_piece">ราคา </label>
-                            <input type="text" name="e_cure_piece" class="form-control" id="e_cure_piece" placeholder="e_cure_piece" disabled>
+                        <div class="form-group col-3">
+                            <label for="e_cure_piece">ราคา </label>
+                            <input type="text" name="e_cure_piece" class="form-control" id="e_cure_piece" placeholder="ราคา" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="inputCount">จำนวน</label>
+                            <input type="number" name="e_cure_count" class="form-control" id="e_cure_count" placeholder="จำนวนที่รับรักษา" step="1">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="e_cure_total">ราคาการรักษาสุทธิ</label>
+                            <input type="text" name="e_cure_total" class="form-control" id="e_cure_total" placeholder="ค่าใช้จ่ายทั้งหมด" readonly='true'>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="e_cure_count">จำนวน</label>
-                            <input type="number" name="e_cure_count" class="form-control" id="e_cure_count" placeholder="จำนวนที่รับรักษา" step="1" min="0">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="e_cure_total">ราคาสุทธิ</label>
-                            <input type="text" name="e_cure_total" class="form-control" id="e_cure_total" readonly='true'>
-                        </div>
-                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-3">
                             <label>รายการยา</label>
@@ -315,7 +314,7 @@
                         </div>
                         <div class="form-group col-3">
                             <label for="e_drug_count">จำนวน</label>
-                            <input type="number" name="e_drug_count" class="form-control" id="e_drug_count" placeholder="จำนวนที่รับรักษา" step="1" min="0">
+                            <input type="number" name="e_drug_count" class="form-control" id="e_drug_count" placeholder="จำนวนที่รับรักษา" step="1">
                         </div>
                         <div class="form-group col-3">
                             <label for="e_drug_total">ราคายาสุทธิ</label>
@@ -437,20 +436,20 @@
 
         $('.e_cure').change(() => getCurePieceEdit().then(() => {
             $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
-            let a = parseFloat($('#a_cure_total').val());
-            let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
-                $('#a_net_total').val(0);
+            let a = parseFloat($('#e_cure_total').val());
+            let b = parseFloat($('#e_drug_total').val());
+            $('#e_net_total').val(a+b);
+            if(isNaN($('#e_net_total').val())){
+                $('#e_net_total').val(0);
             }
         }))
         $('#e_cure_count').change(() => {
             $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
-            let a = parseFloat($('#a_cure_total').val());
-            let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
-                $('#a_net_total').val(0);
+            let a = parseFloat($('#e_cure_total').val());
+            let b = parseFloat($('#e_drug_total').val());
+            $('#e_net_total').val(a+b);
+            if(isNaN($('#e_net_total').val())){
+                $('#e_net_total').val(0);
             }
         })
 
@@ -482,13 +481,13 @@
                 $('#a_net_total').val(0);
             }
         }))
-        $('#a_drug_count').change(() => {
+        $('#e_drug_count').change(() => {
             $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
-            let a = parseFloat($('#a_cure_total').val());
-            let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
-                $('#a_net_total').val(0);
+            let a = parseFloat($('#e_cure_total').val());
+            let b = parseFloat($('#e_drug_total').val());
+            $('#e_net_total').val(a+b);
+            if(isNaN($('#e_net_total').val())){
+                $('#e_net_total').val(0);
             }
         })
 
@@ -976,12 +975,18 @@
                 //$('#e_patient_name').val(val.patient_id);
                 $('.e_patient_name').val(val.patient_id).trigger('change');
                 $('#e_drug_allergy').val(val.drug_allergy);
-                $('#e_cure').val(val.cure_id);
+                $('.e_cure').val(val.cure_id).trigger('change');
                 $('#e_cure_piece').val(val.cure_piece);
                 $('#e_cure_count').val(val.cure_count);
+                $('#e_cure_total').val(val.cure_total);
+
+                $('.e_drug').val(val.drug_id).trigger('change');
+                $('#e_drug_piece').val(val.drug_piece);
+                $('#e_drug_count').val(val.drug_count);
+                $('#e_drug_total').val(val.drug_total);
                 $('#e_net_total').val(val.net_total);
                 $('#e_teeth').val(val.teeth);
-                $('#e_medicine').val(val.medicine);
+                $('#e_note').val(val.note);
             }
         });
         //edituserform
