@@ -48,7 +48,7 @@
                             <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อผู้ป่วย</th>
                             <th class="text-nowrap">ฟันที่ได้รับการรักษา</th>
-                            
+
                             <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ราคาการรักษา</th>
                             <th class="text-nowrap">จำนวนที่รับรักษา</th>
@@ -98,11 +98,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                        <th class="text-nowrap">รหัสประวัติการรักษา</th>
+                            <th class="text-nowrap">รหัสประวัติการรักษา</th>
                             <th class="text-nowrap">รหัสผู้ป่วย</th>
                             <th class="text-nowrap">ชื่อผู้ป่วย</th>
                             <th class="text-nowrap">ฟันที่ได้รับการรักษา</th>
-                            
+
                             <th class="text-nowrap">การรักษา</th>
                             <th class="text-nowrap">ราคาการรักษา</th>
                             <th class="text-nowrap">จำนวนที่รับรักษา</th>
@@ -419,8 +419,8 @@
             $('#a_cure_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
             let a = parseFloat($('#a_cure_total').val());
             let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
+            $('#a_net_total').val(a + b);
+            if (isNaN($('#a_net_total').val())) {
                 $('#a_net_total').val(0);
             }
         }))
@@ -428,8 +428,8 @@
             $('#a_cure_total').val($('#a_cure_count').val() * $('#a_cure_piece').val());
             let a = parseFloat($('#a_cure_total').val());
             let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
+            $('#a_net_total').val(a + b);
+            if (isNaN($('#a_net_total').val())) {
                 $('#a_net_total').val(0);
             }
         })
@@ -438,8 +438,8 @@
             $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
             let a = parseFloat($('#e_cure_total').val());
             let b = parseFloat($('#e_drug_total').val());
-            $('#e_net_total').val(a+b);
-            if(isNaN($('#e_net_total').val())){
+            $('#e_net_total').val(a + b);
+            if (isNaN($('#e_net_total').val())) {
                 $('#e_net_total').val(0);
             }
         }))
@@ -447,46 +447,71 @@
             $('#e_cure_total').val($('#e_cure_count').val() * $('#e_cure_piece').val());
             let a = parseFloat($('#e_cure_total').val());
             let b = parseFloat($('#e_drug_total').val());
-            $('#e_net_total').val(a+b);
-            if(isNaN($('#e_net_total').val())){
+            $('#e_net_total').val(a + b);
+            if (isNaN($('#e_net_total').val())) {
                 $('#e_net_total').val(0);
             }
         })
 
         $('.a_drug').change(() => getDrugPiece().then(() => {
             $('#a_drug_total').val($('#a_drug_count').val() * $('#a_drug_piece').val());
+            
             let a = parseFloat($('#a_cure_total').val());
             let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
+            $('#a_net_total').val(a + b);
+            if (isNaN($('#a_net_total').val())) {
                 $('#a_net_total').val(0);
             }
+            $("#a_drug_count").removeAttr("disabled");
+            if ($('.a_drug').val() == 0) {
+                $('#a_drug_total').val('0');
+                $('#a_drug_count').val('0');
+                $('#a_drug_piece').val('-');
+                // $("#a_drug_count").attr("disabled", "disabled");
+            }
         }))
+
+        $('#a_drug_total').val('0');
+        $('#a_drug_count').val('0');
+        $('#a_drug_piece').val('-');
+        // $("#a_drug_count").attr("disabled", "disabled");
+
         $('#a_drug_count').change(() => {
             $('#a_drug_total').val($('#a_drug_count').val() * $('#a_drug_piece').val());
             let a = parseFloat($('#a_cure_total').val());
             let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
+            $('#a_net_total').val(a + b);
+            if (isNaN($('#a_net_total').val())) {
                 $('#a_net_total').val(0);
             }
         })
+        $('#e_drug_total').val('0');
+        $('#e_drug_count').val('0');
+        $('#e_drug_piece').val('-');
+        // $("#e_drug_count").attr("disabled", "disabled");
 
         $('.e_drug').change(() => getDrugPieceEdit().then(() => {
             $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
-            let a = parseFloat($('#a_cure_total').val());
-            let b = parseFloat($('#a_drug_total').val());
-            $('#a_net_total').val(a+b);
-            if(isNaN($('#a_net_total').val())){
-                $('#a_net_total').val(0);
+            let a = parseFloat($('#e_cure_total').val());
+            let b = parseFloat($('#e_drug_total').val());
+            $('#e_net_total').val(a + b);
+            if (isNaN($('#e_net_total').val())) {
+                $('#e_net_total').val(0);
+            }
+            // $("#e_drug_count").removeAttr("disabled");
+            if ($('.e_drug').val() == 0) {
+                $('#e_drug_total').val('0');
+                $('#e_drug_count').val('0');
+                $('#e_drug_piece').val('-');
+                // $("#e_drug_count").attr("disabled", "disabled");
             }
         }))
         $('#e_drug_count').change(() => {
             $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
             let a = parseFloat($('#e_cure_total').val());
             let b = parseFloat($('#e_drug_total').val());
-            $('#e_net_total').val(a+b);
-            if(isNaN($('#e_net_total').val())){
+            $('#e_net_total').val(a + b);
+            if (isNaN($('#e_net_total').val())) {
                 $('#e_net_total').val(0);
             }
         })
@@ -728,8 +753,8 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    $('.a_drug').append('<option value="0">-</option>');
-                    $('.e_drug').append('<option value="0">-</option>');
+                    // $('.a_drug').append('<option value="0">-</option>');
+                    // $('.e_drug').append('<option value="0">-</option>');
                     $.each(response.data, function(i, val) {
                         $('.a_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
                         $('.e_drug').append('<option value="' + val.id + '">' + val.text + '</option>')
@@ -759,7 +784,7 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    if(response.data.length != 0)
+                    if (response.data.length != 0)
                         $('#a_cure_piece').val(response.data[0].cure_piece)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -786,7 +811,7 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    if(response.data.length != 0)
+                    if (response.data.length != 0)
                         $('#a_drug_piece').val(response.data[0].drug_price)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -813,7 +838,7 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    if(response.data.length != 0)
+                    if (response.data.length != 0)
                         $('#e_cure_piece').val(response.data[0].cure_piece)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {
@@ -828,6 +853,7 @@
             }
         });
     }
+
     function getDrugPieceEdit() {
         var id = $('.e_drug').val();
         return $.ajax({
@@ -839,7 +865,7 @@
             dataType: 'json',
             success: function(response) {
                 if (response.status) {
-                    if(response.data.length !=0 )
+                    if (response.data.length != 0)
                         $('#e_drug_piece').val(response.data[0].drug_price)
                 } else {
                     swal("เกิดข้อผิดพลาด :" + response.errmsg, {

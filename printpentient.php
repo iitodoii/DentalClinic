@@ -53,6 +53,7 @@ $_GET["id"];
                             <div class="firstinfo"><img src="img/1.png" />
                                 <div class="profileinfo">
                                     <h1>Dental Clinic </h1>
+                                    <p>บัตรผู้ป่วย</p>
                                     <p>รหัสผู้ป่วย : <?php echo $row['patient_id'] ?></p>
                                     <p>ชื่อ <?php echo $row['firstname'] . " " . $row['lastname'] ?></h6>
                                     <p>เบอร์โทร <?php echo $row['phone'] ?></p>
