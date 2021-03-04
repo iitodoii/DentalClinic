@@ -23,32 +23,5 @@
     </section>
 </div>
 
-<div class="modal fade" id="modal-add-event" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">เพิ่มการนัดหมาย</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-</div>
-
-<div class="modal fade" id="modal-edit-event" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">รายละเอียดการนัดหมาย</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <?php include '_footer.php'; ?>
 </html>
