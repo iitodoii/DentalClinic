@@ -36,11 +36,12 @@
                 <h3 class="card-title">รายการยา</h3>
             </div>
             <!-- /.card-header -->
-            <?php $sql = "SELECT * FROM `master_drug`";
+            <?php $sql = "SELECT * FROM `master_drug` WHERE id != 0 ";
             $result = $conn->query($sql);
             $myJson2 = json_encode($result);
 
             ?>
+
             <div class="card-body">
                 <button type="button" class="btn btn-info mb-4" data-toggle="modal" data-target="#modal-lg">
                     เพิ่มรายการยา
@@ -344,7 +345,7 @@
                         type: 'post', //วิธีการส่ง
                         url: '_deletedrug.php', //หน้าที่จะไป
                         data: {
-                            id: id
+                            id: id,
                         }, //parameter ที่ส่งไป
                         dataType: 'json', //Type ข้อมูลที่ส่งกลับมา
                         success: function(response) {

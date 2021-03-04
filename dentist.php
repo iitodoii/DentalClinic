@@ -34,10 +34,13 @@
         <div class="row">
             <?php $sql = "SELECT *,year(now())-year(birthdate) as age FROM `master_user` WHERE role='user' ";
             $result = $conn->query($sql);
+
             $myJson2 = json_encode($result);
+
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
             ?>
+
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 col-xl-6" style="margin-bottom:10vh">
                         <div class="content-profile ml-4">
                             <div class="card-profile">

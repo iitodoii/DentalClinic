@@ -467,14 +467,14 @@
                 $('#a_drug_total').val('0');
                 $('#a_drug_count').val('0');
                 $('#a_drug_piece').val('-');
-                // $("#a_drug_count").attr("disabled", "disabled");
+                $("#a_drug_count").attr("disabled", "disabled");
             }
         }))
 
         $('#a_drug_total').val('0');
         $('#a_drug_count').val('0');
         $('#a_drug_piece').val('-');
-        // $("#a_drug_count").attr("disabled", "disabled");
+        $("#a_drug_count").attr("disabled", "disabled");
 
         $('#a_drug_count').change(() => {
             $('#a_drug_total').val($('#a_drug_count').val() * $('#a_drug_piece').val());
@@ -485,10 +485,11 @@
                 $('#a_net_total').val(0);
             }
         })
+
         $('#e_drug_total').val('0');
         $('#e_drug_count').val('0');
         $('#e_drug_piece').val('-');
-        // $("#e_drug_count").attr("disabled", "disabled");
+        $("#e_drug_count").attr("disabled", "disabled");
 
         $('.e_drug').change(() => getDrugPieceEdit().then(() => {
             $('#e_drug_total').val($('#e_drug_count').val() * $('#e_drug_piece').val());
@@ -498,12 +499,12 @@
             if (isNaN($('#e_net_total').val())) {
                 $('#e_net_total').val(0);
             }
-            // $("#e_drug_count").removeAttr("disabled");
+            $("#e_drug_count").removeAttr("disabled");
             if ($('.e_drug').val() == 0) {
                 $('#e_drug_total').val('0');
                 $('#e_drug_count').val('0');
                 $('#e_drug_piece').val('-');
-                // $("#e_drug_count").attr("disabled", "disabled");
+                $("#e_drug_count").attr("disabled", "disabled");
             }
         }))
         $('#e_drug_count').change(() => {
